@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samuel Avril — Book de compétences</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0B141D;
+    --panel: #101C27;
+    --panel-alt: #15222E;
+    --line: rgba(143,184,204,0.18);
+    --line-soft: rgba(143,184,204,0.09);
+    --text: #EAF0F4;
+    --text-muted: #8FA6B7;
+    --accent: #E8A33D;
+    --accent-2: #5BB4D6;
+    --radius: 3px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--ink);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,h2,h3,h4{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  p { margin: 0 0 1em 0; color: var(--text-muted); max-width: 62ch; }
+  a { color: var(--accent-2); }
+
+  .wrap{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(11,20,29,0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    height: 60px;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+  }
+  .nav-mark{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+  }
+  .nav-mark span{ color: var(--accent-2); }
+  .nav-links{
+    display:flex;
+    gap: 22px;
+    list-style:none;
+    margin:0; padding:0;
+    flex-wrap: wrap;
+  }
+  .nav-links a{
+    color: var(--text-muted);
+    text-decoration:none;
+    font-size: 0.85rem;
+    padding: 4px 0;
+    border-bottom: 1px solid transparent;
+    transition: color .15s ease, border-color .15s ease;
+  }
+  .nav-links a:hover{ color: var(--text); border-color: var(--accent); }
+
+  /* ---------- CORNER FRAME MOTIF ---------- */
+  .framed{ position: relative; }
+  .corner{ position:absolute; width:18px; height:18px; border: 1.5px solid var(--accent-2); opacity:.55; }
+  .corner-tl{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .corner-tr{ top:-1px; right:-1px; border-left:none; border-bottom:none; }
+  .corner-bl{ bottom:-1px; left:-1px; border-right:none; border-top:none; }
+  .corner-br{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 84px 0 64px;
+    background-image:
+      repeating-linear-gradient(0deg, var(--line-soft) 0 1px, transparent 1px 64px),
+      repeating-linear-gradient(90deg, var(--line-soft) 0 1px, transparent 1px 64px);
+    background-position: center top;
+  }
+  .hero-inner{
+    padding: 44px 40px;
+    animation: rise .7s ease both;
+  }
+  @keyframes rise{
+    from{ opacity:0; transform: translateY(14px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+  .doc-ref{
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 22px;
+  }
+  .doc-ref b{ color: var(--accent-2); font-weight: 500; }
+
+  .hero h1{
+    font-size: clamp(2.6rem, 6.4vw, 4.6rem);
+    line-height: 1.02;
+  }
+  .hero .role{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 14px;
+  }
+  .hero .pitch{
+    margin-top: 22px;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 58ch;
+  }
+
+  .stat-row{
+    display:flex;
+    gap: 0;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  .stat{
+    padding: 0 32px 0 0;
+    margin-right: 32px;
+    border-right: 1px solid var(--line);
+  }
+  .stat:last-child{ border-right:none; }
+  .stat .num{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .lbl{
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  .section{ padding: 76px 0; border-bottom: 1px solid var(--line); }
+  .section.alt{ background: var(--panel); }
+
+  .kicker{
+    display:flex;
+    align-items:baseline;
+    gap: 14px;
+    margin-bottom: 34px;
+  }
+  .kicker .idx{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    color: var(--accent-2);
+    font-variant-numeric: tabular-nums;
+    border: 1px solid var(--line);
+    padding: 3px 8px;
+    border-radius: var(--radius);
+  }
+  .kicker h2{ font-size: clamp(1.5rem, 3vw, 2rem); }
+
+  .lede{ font-size: 1.02rem; margin-bottom: 8px; }
+
+  /* ---------- TIMELINE (Expérience) ---------- */
+  .timeline{ position: relative; margin-top: 12px; }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left: 7px; top: 6px; bottom: 6px;
+    width: 1px;
+    background: var(--line);
+  }
+  .role-block{ position: relative; padding: 0 0 40px 34px; }
+  .role-block:last-child{ padding-bottom: 0; }
+  .role-block::before{
+    content:"";
+    position:absolute;
+    left: 2px; top: 5px;
+    width: 11px; height: 11px;
+    border: 2px solid var(--accent);
+    background: var(--ink);
+    border-radius: 1px;
+    transform: rotate(45deg);
+  }
+  .role-head{
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+  }
+  .role-head h3{ font-size: 1.15rem; }
+  .role-period{
+    font-size: 0.8rem;
+    color: var(--accent-2);
+    font-family: 'Space Grotesk', sans-serif;
+    white-space: nowrap;
+  }
+  .role-org{ color: var(--text-muted); font-size: 0.92rem; margin-top: 2px; margin-bottom: 14px; }
+  .role-block ul{ margin:0; padding-left: 18px; }
+  .role-block li{ color: var(--text-muted); margin-bottom: 8px; font-size: 0.96rem; }
+  .role-block li::marker{ color: var(--accent-2); }
+
+  /* ---------- FORMATION ---------- */
+  .edu-list{ display:flex; flex-direction: column; gap: 22px; margin-top: 8px; }
+  .edu-item{ display:flex; gap: 20px; align-items:flex-start; border-left: 2px solid var(--accent); padding-left: 18px; }
+  .edu-item h3{ font-size: 1.05rem; }
+  .edu-item .edu-meta{ font-size: 0.85rem; color: var(--text-muted); margin-top: 3px; }
+
+  /* ---------- COMPETENCES ---------- */
+  .panels{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 8px;
+  }
+  .panel{ background: var(--ink); padding: 26px 26px 24px; }
+  .section.alt .panel{ background: var(--panel); }
+  .panel h3{ font-size: 1.02rem; margin-bottom: 6px; }
+  .panel .desc{ font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px; }
+  .tag-row{ display:flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .tag{
+    font-size: 0.78rem;
+    color: var(--text);
+    border: 1px solid var(--line);
+    padding: 5px 10px;
+    border-radius: var(--radius);
+    white-space: nowrap;
+  }
+  .highlight{
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* ---------- PROJET PAF ---------- */
+  .project-context{ font-size: 0.85rem; color: var(--accent); font-family:'Space Grotesk', sans-serif; margin-bottom: 10px; }
+
+  .schema{
+    margin: 40px 0 20px;
+    padding: 36px 30px;
+    border: 1px solid var(--line);
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+  .schema-node{
+    flex: 1;
+    padding: 16px 14px;
+    border: 1px solid var(--line);
+    background: var(--panel-alt);
+  }
+  .section.alt .schema-node{ background: var(--ink); }
+  .schema-node .si{
+    display:inline-block;
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 0.72rem;
+    color: var(--accent-2);
+    border: 1px solid var(--line);
+    padding: 1px 6px;
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+  }
+  .schema-node h4{ font-size: 0.92rem; line-height: 1.3; margin-bottom: 6px; }
+  .schema-node p{ font-size: 0.78rem; color: var(--text-muted); margin:0; }
+  .schema-arrow{
+    flex: 0 0 34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--accent-2);
+    font-size: 1.1rem;
+  }
+  .schema-caption{ font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+
+  /* ---------- SOFT SKILLS / LANGUES ---------- */
+  .two-col{ display:grid; grid-template-columns: 1.3fr 1fr; gap: 56px; margin-top: 8px; }
+  .trait{ display:flex; gap: 14px; margin-bottom: 20px; }
+  .trait .mark{ flex: 0 0 auto; width: 8px; height: 8px; margin-top: 8px; background: var(--accent); transform: rotate(45deg); }
+  .trait h4{ font-size: 0.98rem; margin-bottom: 3px; }
+  .trait p{ font-size: 0.88rem; margin:0; }
+
+  .lang-item{ display:flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .lang-item:first-child{ padding-top: 0; }
+  .lang-item .lang-name{ font-family:'Space Grotesk', sans-serif; font-size: 1rem; }
+  .lang-item .lang-lvl{ font-size: 0.82rem; color: var(--accent-2); }
+
+  /* ---------- OBJECTIF ---------- */
+  .objectif-block{ max-width: 72ch; }
+  .objectif-block .lede{ color: var(--text); font-size: 1.15rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; line-height: 1.4; margin-bottom: 18px; }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{ padding: 64px 0 48px; }
+  .contact-grid{ display:flex; gap: 48px; flex-wrap: wrap; margin: 28px 0 48px; }
+  .contact-field{ font-size: 0.95rem; }
+  .contact-field .f-label{ font-size: 0.76rem; color: var(--text-muted); margin-bottom: 4px; }
+  .contact-field .f-value{
+    font-family:'Space Grotesk', sans-serif;
+    color: var(--accent);
+    border-bottom: 1px dashed var(--accent-2);
+    padding-bottom: 2px;
+  }
+  .contact-field .f-value a{ color: var(--accent); text-decoration: none; }
+  .contact-field .f-value a:hover{ color: var(--accent-2); }
+  .fine-print{ font-size: 0.78rem; color: var(--text-muted); border-top: 1px solid var(--line); padding-top: 20px; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 760px){
+    .wrap{ padding: 0 20px; }
+    .hero-inner{ padding: 30px 22px; }
+    .nav-links{ gap: 14px 18px; }
+    .stat-row{ gap: 18px 0; }
+    .stat{ padding-right: 20px; margin-right: 20px; }
+    .panels{ grid-template-columns: 1fr; }
+    .schema{ flex-direction: column; padding: 24px 18px; }
+    .schema-arrow{ flex: 0 0 28px; transform: rotate(90deg); }
+    .two-col{ grid-template-columns: 1fr; gap: 40px; }
+    .role-head{ flex-direction: column; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    .hero-inner{ animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="nav-mark">Samuel Avril <span>— book de compétences</span></div>
+    <ul class="nav-links">
+      <li><a href="#profil">Profil</a></li>
+      <li><a href="#experience">Expérience</a></li>
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#projet">Projet PAF</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="profil">
+  <div class="wrap">
+    <div class="hero-inner framed">
+      <span class="corner corner-tl"></span><span class="corner corner-tr"></span>
+      <span class="corner corner-bl"></span><span class="corner corner-br"></span>
+
+      <div class="doc-ref">Dossier réf. <b>GOP Reims 25–26</b> — Grand Oral Professionnel</div>
+
+      <h1>Samuel Avril</h1>
+      <div class="role">Sécurité informatique — consultant sécurité &amp; administration systèmes / réseau</div>
+
+      <p class="pitch">
+        En dernière année de Master Sécurité Informatique à l'ESGI Reims, je construis mon profil à
+        l'intersection de deux pratiques : une formation qui couvre aussi bien l'attaque que la défense,
+        et deux alternances où j'ai géré au quotidien l'informatique de sites bien réels — du dépannage
+        utilisateur au durcissement du système d'information.
+      </p>
+
+      <div class="stat-row">
+        <div class="stat">
+          <div class="num">260</div>
+          <div class="lbl">jours en entreprise sur le cycle Mastère</div>
+        </div>
+        <div class="stat">
+          <div class="num">2</div>
+          <div class="lbl">alternances — IVT Security &amp; Forgex France</div>
+        </div>
+        <div class="stat">
+          <div class="num">805</div>
+          <div class="lbl">TOEIC — anglais professionnel</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="section" id="experience">
+    <div class="wrap">
+      <div class="kicker"><span class="idx">01</span><h2>Expérience professionnelle</h2></div>
+
+      <div class="timeline">
+        <div class="role-block">
+          <div class="role-head">
+            <h3>Administrateur systèmes &amp; réseau — alternance</h3>
+            <span class="role-period">En cours</span>
+          </div>
+          <div class="role-org">Forgex France — informatique de 4 sites</div>
+          <ul>
+            <li>Assure le support informatique de niveau 1 à 3 pour l'ensemble des utilisateurs des quatre sites</li>
+            <li>Configure et fait évoluer les règles de sécurité du firewall Cato Networks</li>
+            <li>Déploie des campagnes de sensibilisation au phishing auprès des équipes</li>
+            <li>Pilote la migration des postes et logiciels vers un nouveau domaine suite au rachat d'une société</li>
+            <li>Administre l'environnement Microsoft 365 (comptes, droits, sécurité)</li>
+            <li>Rédige des GPO pour durcir la sécurité du parc et gérer les droits d'accès (IAM)</li>
+          </ul>
+        </div>
+
+        <div class="role-block">
+          <div class="role-head">
+            <h3>Technicien systèmes &amp; sécurité — alternance</h3>
+            <span class="role-period">1 an</span>
+          </div>
+          <div class="role-org">IVT Security</div>
+          <ul>
+            <li>Installe des systèmes de contrôle d'accès (Micro Sésame) et des solutions de vidéosurveillance multi-marques</li>
+            <li>Déploie et configure des supervisions Zabbix pour le suivi des infrastructures clients</li>
+            <li>Virtualise et prépare des infrastructures sous Proxmox pour de grands comptes</li>
+            <li>Prépare et configure des serveurs et postes de travail avant livraison client</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="formation">
+    <div class="wrap">
+      <div class="kicker"><span class="idx">02</span><h2>Formation</h2></div>
+      <div class="edu-list">
+        <div class="edu-item">
+          <div>
+            <h3>Master Sécurité Informatique</h3>
+            <div class="edu-meta">ESGI Reims — 2ᵉ année de Mastère, en cours</div>
+          </div>
+        </div>
+        <div class="edu-item">
+          <div>
+            <h3>Licence Chef de Projet Logiciel et Réseau</h3>
+            <div class="edu-meta">ESGI Reims — obtenue en alternance chez IVT Security</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="competences">
+    <div class="wrap">
+      <div class="kicker"><span class="idx">03</span><h2>Compétences techniques</h2></div>
+      <p class="lede" style="margin-bottom:30px;">Construites en cours et éprouvées en entreprise.</p>
+
+      <div class="panels">
+        <div class="panel" style="grid-column: 1 / -1;">
+          <h3>Sécurité défensive &amp; SOC</h3>
+          <div class="desc">Détecter, gérer les accès et répondre aux incidents — au cœur de la pratique quotidienne sur Cato Networks.</div>
+          <div class="tag-row">
+            <span class="tag">Durcissement Windows</span>
+            <span class="tag">Gestion des identités &amp; accès (IAM)</span>
+            <span class="tag">Blue team / SOC</span>
+            <span class="tag">Cyber threat intelligence</span>
+          </div>
+        </div>
+
+        <div class="panel" style="grid-column: 1 / -1;">
+          <h3>Infrastructure &amp; systèmes</h3>
+          <div class="desc">Administrer et sécuriser des environnements systèmes et réseau.</div>
+          <div class="tag-row">
+            <span class="tag">Windows PowerShell</span>
+            <span class="tag">Sécurité avancée des réseaux</span>
+            <span class="tag">Stratégies de groupe (GPO)</span>
+          </div>
+        </div>
+
+        <div class="panel" style="grid-column: 1 / -1;">
+          <h3>Outils &amp; pratique terrain</h3>
+          <div class="desc">Une pratique acquise directement en entreprise, au-delà des cours.</div>
+          <div class="tag-row">
+            <span class="tag">Zabbix</span>
+            <span class="tag">Proxmox</span>
+            <span class="tag">Cato Networks</span>
+            <span class="tag">Switchs Omada</span>
+            <span class="tag">Microsoft 365 Admin Center</span>
+            <span class="tag">Active Directory / GPO</span>
+            <span class="tag">Micro Sésame</span>
+            <span class="tag">Support N1 – N3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="projet">
+    <div class="wrap">
+      <div class="kicker"><span class="idx">04</span><h2>Projet PAF — Pénétration &amp; Attaque Furtive</h2></div>
+      <div class="project-context">Projet de 4ᵉ année — celui qui me tient le plus à cœur</div>
+
+      <p class="lede">
+        Un boîtier dissimulé dans une fausse borne Wi-Fi, branché discrètement sur un réseau interne,
+        pour démontrer qu'une intrusion physique furtive peut ouvrir un accès distant complet.
+      </p>
+      <p>
+        Le dispositif repose sur un Raspberry Pi caché à l'intérieur d'une fausse borne Wi-Fi Ubiquiti,
+        connecté sans être repéré au réseau interne d'une organisation cible. Une fois branché, il établit
+        un callback Socat vers un serveur de commande et de contrôle (C2), en passant par un serveur de
+        rebond qui masque l'origine de la connexion. L'objectif : pouvoir exécuter des commandes à distance
+        sur le réseau interne où le boîtier est branché, comme le ferait un attaquant ayant pris pied
+        physiquement dans les locaux.
+      </p>
+
+      <div class="schema">
+        <div class="schema-node">
+          <span class="si">1</span>
+          <h4>Fausse borne Ubiquiti + Raspberry Pi</h4>
+          <p>Branchée discrètement sur le réseau interne cible</p>
+        </div>
+        <div class="schema-arrow">→</div>
+        <div class="schema-node">
+          <span class="si">2</span>
+          <h4>Callback Socat</h4>
+          <p>Connexion sortante furtive depuis le réseau interne</p>
+        </div>
+        <div class="schema-arrow">→</div>
+        <div class="schema-node">
+          <span class="si">3</span>
+          <h4>Serveur de rebond</h4>
+          <p>Relaye la connexion et masque son origine réelle</p>
+        </div>
+        <div class="schema-arrow">→</div>
+        <div class="schema-node">
+          <span class="si">4</span>
+          <h4>Poste opérateur (C2)</h4>
+          <p>Exécution de commandes à distance sur le réseau cible</p>
+        </div>
+      </div>
+      <div class="schema-caption">Schéma simplifié du flux de communication du dispositif.</div>
+
+      <div class="tag-row" style="margin-top:28px;">
+        <span class="tag">Ingénierie sociale &amp; reconnaissance</span>
+        <span class="tag">Dissimulation matérielle</span>
+        <span class="tag">Pivoting réseau</span>
+        <span class="tag">Command &amp; Control</span>
+        <span class="tag">Discrétion opérationnelle</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="humain">
+    <div class="wrap">
+      <div class="kicker"><span class="idx">05</span><h2>Savoir-être &amp; langues</h2></div>
+
+      <div class="two-col">
+        <div>
+          <div class="trait">
+            <span class="mark"></span>
+            <div>
+              <h4>Réactivité</h4>
+              <p>Gérer le support N1 à N3 au quotidien sur quatre sites impose de traiter vite, sans négliger le fond.</p>
+            </div>
+          </div>
+          <div class="trait">
+            <span class="mark"></span>
+            <div>
+              <h4>Polyvalence</h4>
+              <p>Passer de l'installation terrain à l'administration cloud, du réseau au poste utilisateur.</p>
+            </div>
+          </div>
+          <div class="trait">
+            <span class="mark"></span>
+            <div>
+              <h4>Communication</h4>
+              <p>Sensibiliser les équipes aux risques de sécurité, notamment sur le phishing.</p>
+            </div>
+          </div>
+          <div class="trait">
+            <span class="mark"></span>
+            <div>
+              <h4>Compréhension des problématiques</h4>
+              <p>Adapter chaque solution aux contraintes réelles de l'entreprise plutôt qu'à la théorie seule.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="lang-item">
+            <span class="lang-name">Français</span>
+            <span class="lang-lvl">Natif</span>
+          </div>
+          <div class="lang-item">
+            <span class="lang-name">Anglais</span>
+            <span class="lang-lvl">B2 — TOEIC 805</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="objectif">
+    <div class="wrap">
+      <div class="kicker"><span class="idx">06</span><h2>Projet professionnel</h2></div>
+      <div class="objectif-block">
+        <p class="lede">
+          Consultant sécurité informatique ou administrateur systèmes &amp; réseau — un poste où le terrain
+          et la technique se rejoignent.
+        </p>
+        <p>
+          Mon parcours en alternance m'a donné une pratique concrète de l'administration au quotidien ;
+          le Mastère m'apporte la profondeur technique en cybersécurité offensive et défensive. Je n'ai pas
+          de cible géographique ou sectorielle figée à ce stade : je reste ouvert aux opportunités qui
+          allient rigueur technique et proximité avec le terrain.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="kicker"><span class="idx">07</span><h2>Contact</h2></div>
+    <div class="contact-grid">
+      <div class="contact-field">
+        <div class="f-label">Email</div>
+        <div class="f-value"><a href="mailto:avril.sam5308@gmail.com">avril.sam5308@gmail.com</a></div>
+      </div>
+      <div class="contact-field">
+        <div class="f-label">Téléphone</div>
+        <div class="f-value">06 87 09 30 56</div>
+      </div>
+      <div class="contact-field">
+        <div class="f-label">LinkedIn</div>
+        <div class="f-value"><a href="https://www.linkedin.com/in/samuel-avril-287338292" target="_blank" rel="noopener">linkedin.com/in/samuel-avril-287338292</a></div>
+      </div>
+    </div>
+    <div class="fine-print">
+      Book de compétences — Samuel Avril — Master Sécurité Informatique, ESGI Reims — Grand Oral Professionnel 2025–2026
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
