@@ -1,697 +1,3173 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Samuel Avril — Book de compétences</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink: #0B141D;
-    --panel: #101C27;
-    --panel-alt: #15222E;
-    --line: rgba(143,184,204,0.18);
-    --line-soft: rgba(143,184,204,0.09);
-    --text: #EAF0F4;
-    --text-muted: #8FA6B7;
-    --accent: #E8A33D;
-    --accent-2: #5BB4D6;
-    --radius: 3px;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samuel Avril — Book de Compétences | Sécurité Informatique & Systèmes</title>
+  <meta name="description"
+    content="Book de compétences professionnelles de Samuel Avril — Mastère Sécurité Informatique ESGI Reims, Grand Oral 2025-2026. Administration systèmes, réseau & cybersécurité.">
 
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  <!-- Polices modernes & performantes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
-  body{
-    margin:0;
-    background: var(--ink);
-    color: var(--text);
-    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
-    font-size: 16px;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
+  <style>
+    /* ==========================================================================
+       DESIGN SYSTEM & CSS VARIABLES
+       ========================================================================== */
+    :root {
+      /* Palette Sombre (Défaut) — Élégante, sobre, d'inspiration technique moderne */
+      --bg-base: #090c10;
+      --bg-surface: #0f141c;
+      --bg-surface-raised: #151d28;
+      --bg-surface-hover: #1c2636;
+      --bg-glass: rgba(15, 20, 28, 0.85);
 
-  h1,h2,h3,h4{
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    margin: 0;
-    color: var(--text);
-    letter-spacing: -0.01em;
-  }
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-medium: rgba(255, 255, 255, 0.16);
+      --border-focus: #f59e0b;
 
-  p { margin: 0 0 1em 0; color: var(--text-muted); max-width: 62ch; }
-  a { color: var(--accent-2); }
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
 
-  .wrap{
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 0 32px;
-  }
+      --accent-amber: #f59e0b;
+      --accent-amber-subtle: rgba(245, 158, 11, 0.12);
+      --accent-emerald: #10b981;
+      --accent-emerald-subtle: rgba(16, 185, 129, 0.12);
+      --accent-blue: #38bdf8;
+      --accent-blue-subtle: rgba(56, 189, 248, 0.12);
+      --accent-rose: #f43f5e;
+      --accent-rose-subtle: rgba(244, 63, 94, 0.12);
 
-  /* ---------- NAV ---------- */
-  .nav{
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(11,20,29,0.88);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
-  }
-  .nav .wrap{
-    display:flex;
-    align-items:center;
-    justify-content: space-between;
-    height: 60px;
-    flex-wrap: wrap;
-    gap: 8px 24px;
-  }
-  .nav-mark{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-    font-size: 0.95rem;
-    letter-spacing: 0.01em;
-  }
-  .nav-mark span{ color: var(--accent-2); }
-  .nav-links{
-    display:flex;
-    gap: 22px;
-    list-style:none;
-    margin:0; padding:0;
-    flex-wrap: wrap;
-  }
-  .nav-links a{
-    color: var(--text-muted);
-    text-decoration:none;
-    font-size: 0.85rem;
-    padding: 4px 0;
-    border-bottom: 1px solid transparent;
-    transition: color .15s ease, border-color .15s ease;
-  }
-  .nav-links a:hover{ color: var(--text); border-color: var(--accent); }
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5), 0 2px 6px -1px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 12px 32px -4px rgba(0, 0, 0, 0.6), 0 4px 12px -2px rgba(0, 0, 0, 0.4);
 
-  /* ---------- CORNER FRAME MOTIF ---------- */
-  .framed{ position: relative; }
-  .corner{ position:absolute; width:18px; height:18px; border: 1.5px solid var(--accent-2); opacity:.55; }
-  .corner-tl{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
-  .corner-tr{ top:-1px; right:-1px; border-left:none; border-bottom:none; }
-  .corner-bl{ bottom:-1px; left:-1px; border-right:none; border-top:none; }
-  .corner-br{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
 
-  /* ---------- HERO ---------- */
-  .hero{
-    padding: 84px 0 64px;
-    background-image:
-      repeating-linear-gradient(0deg, var(--line-soft) 0 1px, transparent 1px 64px),
-      repeating-linear-gradient(90deg, var(--line-soft) 0 1px, transparent 1px 64px);
-    background-position: center top;
-  }
-  .hero-inner{
-    padding: 44px 40px;
-    animation: rise .7s ease both;
-  }
-  @keyframes rise{
-    from{ opacity:0; transform: translateY(14px); }
-    to{ opacity:1; transform: translateY(0); }
-  }
-  .doc-ref{
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    margin-bottom: 22px;
-  }
-  .doc-ref b{ color: var(--accent-2); font-weight: 500; }
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  .hero h1{
-    font-size: clamp(2.6rem, 6.4vw, 4.6rem);
-    line-height: 1.02;
-  }
-  .hero .role{
-    font-family:'Space Grotesk', sans-serif;
-    font-size: clamp(1.05rem, 2.2vw, 1.35rem);
-    color: var(--accent);
-    font-weight: 500;
-    margin-top: 14px;
-  }
-  .hero .pitch{
-    margin-top: 22px;
-    font-size: 1.05rem;
-    color: var(--text-muted);
-    max-width: 58ch;
-  }
+      --container-max: 1080px;
+      --transition-base: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-  .stat-row{
-    display:flex;
-    gap: 0;
-    margin-top: 40px;
-    flex-wrap: wrap;
-  }
-  .stat{
-    padding: 0 32px 0 0;
-    margin-right: 32px;
-    border-right: 1px solid var(--line);
-  }
-  .stat:last-child{ border-right:none; }
-  .stat .num{
-    font-family:'Space Grotesk', sans-serif;
-    font-size: 1.7rem;
-    font-weight: 600;
-    color: var(--text);
-    font-variant-numeric: tabular-nums;
-  }
-  .stat .lbl{
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
+    [data-theme="light"] {
+      /* Palette Claire — Éditoriale, contraste soigné, esprit publication papier & tech */
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-raised: #f1f5f9;
+      --bg-surface-hover: #e2e8f0;
+      --bg-glass: rgba(255, 255, 255, 0.9);
 
-  /* ---------- SECTIONS ---------- */
-  .section{ padding: 76px 0; border-bottom: 1px solid var(--line); }
-  .section.alt{ background: var(--panel); }
+      --border-subtle: rgba(15, 23, 42, 0.08);
+      --border-medium: rgba(15, 23, 42, 0.16);
+      --border-focus: #d97706;
 
-  .kicker{
-    display:flex;
-    align-items:baseline;
-    gap: 14px;
-    margin-bottom: 34px;
-  }
-  .kicker .idx{
-    font-family:'Space Grotesk', sans-serif;
-    font-size: 0.85rem;
-    color: var(--accent-2);
-    font-variant-numeric: tabular-nums;
-    border: 1px solid var(--line);
-    padding: 3px 8px;
-    border-radius: var(--radius);
-  }
-  .kicker h2{ font-size: clamp(1.5rem, 3vw, 2rem); }
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
 
-  .lede{ font-size: 1.02rem; margin-bottom: 8px; }
+      --accent-amber: #d97706;
+      --accent-amber-subtle: rgba(217, 119, 6, 0.1);
+      --accent-emerald: #059669;
+      --accent-emerald-subtle: rgba(5, 150, 105, 0.1);
+      --accent-blue: #0284c7;
+      --accent-blue-subtle: rgba(2, 132, 199, 0.1);
+      --accent-rose: #e11d48;
+      --accent-rose-subtle: rgba(225, 29, 72, 0.1);
 
-  /* ---------- TIMELINE (Expérience) ---------- */
-  .timeline{ position: relative; margin-top: 12px; }
-  .timeline::before{
-    content:"";
-    position:absolute;
-    left: 7px; top: 6px; bottom: 6px;
-    width: 1px;
-    background: var(--line);
-  }
-  .role-block{ position: relative; padding: 0 0 40px 34px; }
-  .role-block:last-child{ padding-bottom: 0; }
-  .role-block::before{
-    content:"";
-    position:absolute;
-    left: 2px; top: 5px;
-    width: 11px; height: 11px;
-    border: 2px solid var(--accent);
-    background: var(--ink);
-    border-radius: 1px;
-    transform: rotate(45deg);
-  }
-  .role-head{
-    display:flex;
-    align-items: baseline;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 4px 16px;
-  }
-  .role-head h3{ font-size: 1.15rem; }
-  .role-period{
-    font-size: 0.8rem;
-    color: var(--accent-2);
-    font-family: 'Space Grotesk', sans-serif;
-    white-space: nowrap;
-  }
-  .role-org{ color: var(--text-muted); font-size: 0.92rem; margin-top: 2px; margin-bottom: 14px; }
-  .role-block ul{ margin:0; padding-left: 18px; }
-  .role-block li{ color: var(--text-muted); margin-bottom: 8px; font-size: 0.96rem; }
-  .role-block li::marker{ color: var(--accent-2); }
+      --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 12px 28px -4px rgba(0, 0, 0, 0.12);
+    }
 
-  /* ---------- FORMATION ---------- */
-  .edu-list{ display:flex; flex-direction: column; gap: 22px; margin-top: 8px; }
-  .edu-item{ display:flex; gap: 20px; align-items:flex-start; border-left: 2px solid var(--accent); padding-left: 18px; }
-  .edu-item h3{ font-size: 1.05rem; }
-  .edu-item .edu-meta{ font-size: 0.85rem; color: var(--text-muted); margin-top: 3px; }
+    /* ==========================================================================
+       RESET & BASE STYLES
+       ========================================================================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* ---------- COMPETENCES ---------- */
-  .panels{
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
-    margin-top: 8px;
-  }
-  .panel{ background: var(--ink); padding: 26px 26px 24px; }
-  .section.alt .panel{ background: var(--panel); }
-  .panel h3{ font-size: 1.02rem; margin-bottom: 6px; }
-  .panel .desc{ font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px; }
-  .tag-row{ display:flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-  .tag{
-    font-size: 0.78rem;
-    color: var(--text);
-    border: 1px solid var(--line);
-    padding: 5px 10px;
-    border-radius: var(--radius);
-    white-space: nowrap;
-  }
-  .highlight{
-    font-size: 0.8rem;
-    color: var(--accent);
-    font-family: 'Space Grotesk', sans-serif;
-  }
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
 
-  /* ---------- PROJET PAF ---------- */
-  .project-context{ font-size: 0.85rem; color: var(--accent); font-family:'Space Grotesk', sans-serif; margin-bottom: 10px; }
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
 
-  .schema{
-    margin: 40px 0 20px;
-    padding: 36px 30px;
-    border: 1px solid var(--line);
-    position: relative;
-    display: flex;
-    align-items: stretch;
-    gap: 0;
-  }
-  .schema-node{
-    flex: 1;
-    padding: 16px 14px;
-    border: 1px solid var(--line);
-    background: var(--panel-alt);
-  }
-  .section.alt .schema-node{ background: var(--ink); }
-  .schema-node .si{
-    display:inline-block;
-    font-family:'Space Grotesk', sans-serif;
-    font-size: 0.72rem;
-    color: var(--accent-2);
-    border: 1px solid var(--line);
-    padding: 1px 6px;
-    border-radius: var(--radius);
-    margin-bottom: 10px;
-  }
-  .schema-node h4{ font-size: 0.92rem; line-height: 1.3; margin-bottom: 6px; }
-  .schema-node p{ font-size: 0.78rem; color: var(--text-muted); margin:0; }
-  .schema-arrow{
-    flex: 0 0 34px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color: var(--accent-2);
-    font-size: 1.1rem;
-  }
-  .schema-caption{ font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-  /* ---------- SOFT SKILLS / LANGUES ---------- */
-  .two-col{ display:grid; grid-template-columns: 1.3fr 1fr; gap: 56px; margin-top: 8px; }
-  .trait{ display:flex; gap: 14px; margin-bottom: 20px; }
-  .trait .mark{ flex: 0 0 auto; width: 8px; height: 8px; margin-top: 8px; background: var(--accent); transform: rotate(45deg); }
-  .trait h4{ font-size: 0.98rem; margin-bottom: 3px; }
-  .trait p{ font-size: 0.88rem; margin:0; }
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
 
-  .lang-item{ display:flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line); }
-  .lang-item:first-child{ padding-top: 0; }
-  .lang-item .lang-name{ font-family:'Space Grotesk', sans-serif; font-size: 1rem; }
-  .lang-item .lang-lvl{ font-size: 0.82rem; color: var(--accent-2); }
+    ul,
+    ol {
+      list-style: none;
+    }
 
-  /* ---------- OBJECTIF ---------- */
-  .objectif-block{ max-width: 72ch; }
-  .objectif-block .lede{ color: var(--text); font-size: 1.15rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; line-height: 1.4; margin-bottom: 18px; }
+    img,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
 
-  /* ---------- CONTACT / FOOTER ---------- */
-  footer{ padding: 64px 0 48px; }
-  .contact-grid{ display:flex; gap: 48px; flex-wrap: wrap; margin: 28px 0 48px; }
-  .contact-field{ font-size: 0.95rem; }
-  .contact-field .f-label{ font-size: 0.76rem; color: var(--text-muted); margin-bottom: 4px; }
-  .contact-field .f-value{
-    font-family:'Space Grotesk', sans-serif;
-    color: var(--accent);
-    border-bottom: 1px dashed var(--accent-2);
-    padding-bottom: 2px;
-  }
-  .contact-field .f-value a{ color: var(--accent); text-decoration: none; }
-  .contact-field .f-value a:hover{ color: var(--accent-2); }
-  .fine-print{ font-size: 0.78rem; color: var(--text-muted); border-top: 1px solid var(--line); padding-top: 20px; }
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 760px){
-    .wrap{ padding: 0 20px; }
-    .hero-inner{ padding: 30px 22px; }
-    .nav-links{ gap: 14px 18px; }
-    .stat-row{ gap: 18px 0; }
-    .stat{ padding-right: 20px; margin-right: 20px; }
-    .panels{ grid-template-columns: 1fr; }
-    .schema{ flex-direction: column; padding: 24px 18px; }
-    .schema-arrow{ flex: 0 0 28px; transform: rotate(90deg); }
-    .two-col{ grid-template-columns: 1fr; gap: 40px; }
-    .role-head{ flex-direction: column; }
-  }
+    /* Micro-indicateur de défilement */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2.5px;
+      background: linear-gradient(90deg, var(--accent-amber), var(--accent-emerald));
+      width: 0%;
+      z-index: 999;
+      transition: width 0.08s linear;
+    }
 
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior: auto; }
-    .hero-inner{ animation: none; }
-  }
-</style>
+    /* ==========================================================================
+       TOP STATUS BAR & NAVIGATION
+       ========================================================================== */
+    .top-bar {
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding: 6px 0;
+    }
+
+    .top-bar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .top-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+    }
+
+    .status-pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--accent-emerald);
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulse-ring 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    }
+
+    @keyframes pulse-ring {
+      0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: border-color 0.2s ease;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 20px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-raised);
+      border: 1px solid var(--border-medium);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--accent-amber);
+      font-family: var(--font-mono);
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      color: var(--text-main);
+    }
+
+    .brand-subtitle {
+      font-size: 0.76rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-link {
+      padding: 6px 12px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      transition: var(--transition-base);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text-main);
+      background: var(--bg-surface-raised);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-base);
+    }
+
+    .btn-icon:hover {
+      color: var(--text-main);
+      border-color: var(--border-medium);
+      background: var(--bg-surface-raised);
+    }
+
+    .cmd-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      transition: var(--transition-base);
+    }
+
+    .cmd-badge:hover {
+      border-color: var(--border-medium);
+      color: var(--text-main);
+      background: var(--bg-surface-raised);
+    }
+
+    .cmd-key {
+      background: var(--bg-surface-raised);
+      border: 1px solid var(--border-medium);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       HERO SECTION
+       ========================================================================== */
+    .hero {
+      padding: 72px 0 54px;
+      position: relative;
+    }
+
+    .hero-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-surface-raised);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .hero-meta-badge {
+      background: var(--accent-amber-subtle);
+      color: var(--accent-amber);
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      color: var(--text-main);
+    }
+
+    .hero-role {
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      font-weight: 600;
+      color: var(--accent-amber);
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-pitch {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 68ch;
+      margin-bottom: 36px;
+    }
+
+    .hero-pitch strong {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius-md);
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: var(--transition-base);
+    }
+
+    .btn-primary {
+      background: var(--text-main);
+      color: var(--bg-base);
+      border: 1px solid transparent;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-medium);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-surface-raised);
+      border-color: var(--border-focus);
+      transform: translateY(-1px);
+    }
+
+    /* Grille de statistiques & indicateurs clés */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .metric-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      transition: var(--transition-base);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card:hover {
+      border-color: var(--border-medium);
+      background: var(--bg-surface-raised);
+      transform: translateY(-2px);
+    }
+
+    .metric-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: transparent;
+      transition: var(--transition-base);
+    }
+
+    .metric-card:hover::before {
+      background: var(--accent-amber);
+    }
+
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .metric-val span {
+      font-size: 1.1rem;
+      color: var(--accent-amber);
+      font-weight: 600;
+    }
+
+    .metric-label {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .metric-desc {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    /* ==========================================================================
+       COMMON SECTION STYLES
+       ========================================================================== */
+    .section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+    }
+
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-amber);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 65ch;
+    }
+
+    /* ==========================================================================
+       SECTION EXPÉRIENCE
+       ========================================================================== */
+    .timeline-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .exp-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: var(--transition-base);
+    }
+
+    .exp-card:hover {
+      border-color: var(--border-medium);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .exp-role {
+      font-size: 1.28rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .exp-company {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      color: var(--accent-amber);
+      font-weight: 600;
+    }
+
+    .exp-company-scope {
+      color: var(--text-muted);
+      font-weight: 400;
+      font-size: 0.85rem;
+    }
+
+    .exp-badges {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      border: 1px solid transparent;
+    }
+
+    .badge-ongoing {
+      background: var(--accent-emerald-subtle);
+      color: var(--accent-emerald);
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+
+    .badge-past {
+      background: var(--bg-surface-raised);
+      color: var(--text-muted);
+      border-color: var(--border-subtle);
+    }
+
+    .exp-body {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .exp-tasks {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .exp-task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .exp-task-bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-amber);
+      margin-top: 8px;
+      flex-shrink: 0;
+    }
+
+    .exp-tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--border-subtle);
+    }
+
+    .tech-pill {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      background: var(--bg-surface-raised);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+      padding: 3px 9px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ==========================================================================
+       SECTION PROJETS MAJEURS (PAF & ENIGMA)
+       ========================================================================== */
+    .projects-container {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .project-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      position: relative;
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .project-category {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent-amber);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .project-name {
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .project-lead {
+      font-size: 1.05rem;
+      color: var(--text-main);
+      font-weight: 500;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .project-desc {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    /* --- PROJET PAF : Architecture interactive Red vs Blue --- */
+    .paf-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      background: var(--bg-surface-raised);
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .paf-mode-toggle {
+      display: flex;
+      background: var(--bg-base);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .paf-mode-btn {
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 4px;
+      color: var(--text-muted);
+      transition: var(--transition-base);
+    }
+
+    .paf-mode-btn.active-red {
+      background: var(--accent-rose-subtle);
+      color: var(--accent-rose);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+    }
+
+    .paf-mode-btn.active-blue {
+      background: var(--accent-blue-subtle);
+      color: var(--accent-blue);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .paf-hint {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+
+    .topology-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .topo-node {
+      background: var(--bg-surface-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px 14px;
+      cursor: pointer;
+      transition: var(--transition-base);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topo-node:hover {
+      border-color: var(--border-medium);
+      transform: translateY(-2px);
+    }
+
+    .topo-node.active-node {
+      border-color: var(--accent-amber);
+      background: var(--bg-surface-hover);
+      box-shadow: 0 0 0 1px var(--accent-amber);
+    }
+
+    .topo-node-idx {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent-amber);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .topo-node-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .topo-node-sub {
+      font-size: 0.76rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+      margin-top: auto;
+    }
+
+    /* Volet de détail interactif PAF */
+    .paf-detail-box {
+      background: var(--bg-surface-raised);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-top: 14px;
+      transition: var(--transition-base);
+    }
+
+    .paf-detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .paf-detail-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .paf-detail-content {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .paf-detail-tech {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    /* --- PROJET ENIGMA : Simulateur de Terminal interactif --- */
+    .terminal-window {
+      background: #0d1117;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      font-family: var(--font-mono);
+      box-shadow: var(--shadow-md);
+    }
+
+    .terminal-header {
+      background: #161b22;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .dot-red {
+      background: #ff5f56;
+    }
+
+    .dot-yellow {
+      background: #ffbd2e;
+    }
+
+    .dot-green {
+      background: #27c93f;
+    }
+
+    .terminal-title {
+      font-size: 0.76rem;
+      color: #8b949e;
+    }
+
+    .terminal-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 10px 14px;
+      background: #12161f;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .term-btn {
+      background: #1f242e;
+      color: #c9d1d9;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.74rem;
+      font-family: var(--font-mono);
+      transition: all 0.15s ease;
+    }
+
+    .term-btn:hover {
+      background: #2d3340;
+      color: #fff;
+      border-color: var(--accent-amber);
+    }
+
+    .terminal-body {
+      padding: 16px;
+      min-height: 220px;
+      max-height: 320px;
+      overflow-y: auto;
+      color: #e6edf3;
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .term-prompt {
+      color: #58a6ff;
+    }
+
+    .term-cmd {
+      color: #7ee787;
+      font-weight: 600;
+    }
+
+    .term-output {
+      color: #8b949e;
+      margin: 6px 0 14px;
+    }
+
+    .term-success {
+      color: #3fb950;
+    }
+
+    .term-warn {
+      color: #d29922;
+    }
+
+    .term-highlight {
+      color: #f0883e;
+    }
+
+    /* ==========================================================================
+       SECTION MATRICE DE COMPÉTENCES
+       ========================================================================== */
+    .skills-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .filter-btn {
+      padding: 7px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.84rem;
+      font-weight: 600;
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+      transition: var(--transition-base);
+    }
+
+    .filter-btn:hover {
+      background: var(--bg-surface-raised);
+      color: var(--text-main);
+      border-color: var(--border-medium);
+    }
+
+    .filter-btn.active {
+      background: var(--text-main);
+      color: var(--bg-base);
+      border-color: transparent;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .skill-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: var(--transition-base);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .skill-card:hover {
+      border-color: var(--border-medium);
+      transform: translateY(-2px);
+    }
+
+    .skill-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .skill-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .skill-context-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      background: var(--bg-surface-raised);
+      color: var(--accent-amber);
+      border: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+
+    .skill-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 2px 7px;
+      background: var(--bg-surface-raised);
+      color: var(--text-dim);
+      border-radius: 4px;
+    }
+
+    /* ==========================================================================
+       FORMATION & SAVOIR-ÊTRE & PROJET PROFESSIONNEL
+       ========================================================================== */
+    .edu-vision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .dual-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+    }
+
+    .dual-box-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .edu-item {
+      padding-left: 18px;
+      border-left: 2px solid var(--accent-amber);
+      margin-bottom: 24px;
+    }
+
+    .edu-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .edu-degree {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .edu-school {
+      font-size: 0.88rem;
+      color: var(--accent-amber);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .edu-details {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .soft-skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .soft-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .soft-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-amber-subtle);
+      color: var(--accent-amber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .soft-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .soft-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* Bloc Projet Pro / Vision */
+    .vision-banner {
+      margin-top: 32px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      position: relative;
+    }
+
+    .vision-banner::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--accent-amber), var(--accent-emerald));
+      border-top-left-radius: var(--radius-lg);
+      border-bottom-left-radius: var(--radius-lg);
+    }
+
+    .vision-lead {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .vision-body {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ==========================================================================
+       FOOTER & CONTACT
+       ========================================================================== */
+    .site-footer {
+      padding: 64px 0 40px;
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .contact-box {
+      background: var(--bg-surface-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition-base);
+    }
+
+    .contact-box:hover {
+      border-color: var(--border-medium);
+      transform: translateY(-2px);
+    }
+
+    .contact-box-label {
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+
+    .contact-box-val {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+      word-break: break-all;
+      margin-bottom: 12px;
+    }
+
+    .contact-box-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-amber);
+      transition: var(--transition-base);
+    }
+
+    .contact-box-action:hover {
+      color: var(--text-main);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+
+    /* ==========================================================================
+       COMMAND PALETTE (CMD+K) & TOAST NOTIFICATION
+       ========================================================================== */
+    .cmd-palette-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 12vh;
+    }
+
+    .cmd-palette-backdrop.open {
+      display: flex;
+    }
+
+    .cmd-modal {
+      width: 100%;
+      max-width: 580px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      animation: modal-slide 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modal-slide {
+      from {
+        opacity: 0;
+        transform: translateY(-12px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .cmd-input-wrap {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-subtle);
+      gap: 12px;
+    }
+
+    .cmd-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      color: var(--text-main);
+      outline: none;
+    }
+
+    .cmd-input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .cmd-list {
+      max-height: 360px;
+      overflow-y: auto;
+      padding: 8px;
+    }
+
+    .cmd-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      transition: var(--transition-base);
+    }
+
+    .cmd-item:hover,
+    .cmd-item.selected {
+      background: var(--bg-surface-raised);
+      color: var(--text-main);
+    }
+
+    .cmd-item-shortcut {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--text-main);
+      color: var(--bg-base);
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      font-size: 0.86rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      z-index: 1001;
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       PRINT MODE (OPTIMISÉ POUR JURY / EXPORT PDF)
+       ========================================================================== */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 11pt;
+      }
+
+      .top-bar,
+      .site-nav,
+      .hero-actions,
+      .paf-controls,
+      .terminal-controls,
+      .skills-filters,
+      .cmd-palette-backdrop,
+      #scroll-progress,
+      .toast {
+        display: none !important;
+      }
+
+      .section {
+        padding: 24px 0 !important;
+        page-break-inside: avoid;
+      }
+
+      .exp-card,
+      .project-card,
+      .metric-card,
+      .skill-card,
+      .dual-box,
+      .vision-banner {
+        border: 1px solid #cccccc !important;
+        background: #ffffff !important;
+        box-shadow: none !important;
+        color: #000000 !important;
+      }
+
+      .hero-title {
+        font-size: 24pt !important;
+      }
+
+      .hero-role {
+        color: #333333 !important;
+      }
+
+      a {
+        text-decoration: none !important;
+        color: #000000 !important;
+      }
+    }
+
+    /* ==========================================================================
+       RESPONSIVE DESIGN (MOBILE & TABLETTE)
+       ========================================================================== */
+    @media (max-width: 900px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .topology-flow {
+        grid-template-columns: 1fr;
+      }
+
+      .edu-vision-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 48px 0 36px;
+      }
+    }
+
+    /* ================================================================
+       MODE PRÉSENTATION — direction éditoriale / professionnelle
+       Objectif : portfolio de soutenance, pas interface de dashboard.
+       ================================================================ */
+
+    :root {
+      --bg-base: #f6f7f9;
+      --bg-surface: #ffffff;
+      --bg-surface-raised: #f1f3f6;
+      --bg-surface-hover: #e9edf2;
+      --bg-glass: rgba(255, 255, 255, .96);
+
+      --border-subtle: #dfe3e8;
+      --border-medium: #c8ced6;
+      --border-focus: #1d4f91;
+
+      --text-main: #17212b;
+      --text-muted: #536170;
+      --text-dim: #7b8794;
+
+      --accent-amber: #1d4f91;
+      --accent-amber-subtle: #edf3fa;
+      --accent-emerald: #26734d;
+      --accent-emerald-subtle: #edf7f1;
+      --accent-blue: #1d4f91;
+      --accent-blue-subtle: #edf3fa;
+      --accent-rose: #9b3b48;
+      --accent-rose-subtle: #faeef0;
+
+      --shadow-sm: 0 1px 2px rgba(23, 33, 43, .04);
+      --shadow-md: 0 6px 18px rgba(23, 33, 43, .07);
+      --shadow-lg: 0 16px 36px rgba(23, 33, 43, .10);
+
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-full: 999px;
+
+      --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+      --container-max: 1120px;
+      --transition-base: all .18s ease;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+    }
+
+    /* Éléments trop "interface produit" pour une soutenance */
+    #scroll-progress,
+    .top-bar,
+    #cmd-trigger {
+      display: none !important;
+    }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-inner {
+      height: 72px;
+    }
+
+    .nav-brand {
+      gap: 13px;
+    }
+
+    .brand-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 5px;
+      background: #17212b;
+      border: none;
+      color: #fff;
+      font-family: var(--font-sans);
+    }
+
+    .brand-title {
+      font-weight: 700;
+    }
+
+    .brand-subtitle {
+      font-family: var(--font-sans);
+      color: var(--text-dim);
+    }
+
+    .nav-menu {
+      gap: 2px;
+    }
+
+    .nav-link {
+      border-radius: 4px;
+      padding: 8px 11px;
+      color: var(--text-muted);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background: transparent;
+      color: var(--accent-blue);
+    }
+
+    .btn-icon {
+      border-radius: 5px;
+      background: #fff;
+    }
+
+    /* Hero : plus proche d'une page de présentation professionnelle */
+    .hero {
+      padding: 88px 0 72px;
+      background: #fff;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .hero-meta {
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 20px;
+      font-family: var(--font-sans);
+      color: var(--text-dim);
+    }
+
+    .hero-meta-badge {
+      background: var(--accent-amber-subtle);
+      color: var(--accent-blue);
+      border: 1px solid #d7e3f1;
+      border-radius: 4px;
+      padding: 4px 8px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 5vw, 4.25rem);
+      letter-spacing: -.045em;
+      margin-bottom: 10px;
+    }
+
+    .hero-role {
+      color: var(--accent-blue);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+
+    .hero-pitch {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 72ch;
+    }
+
+    .hero-actions {
+      margin-bottom: 56px;
+    }
+
+    .btn {
+      border-radius: 5px;
+      padding: 10px 17px;
+    }
+
+    .btn-primary {
+      background: #17212b;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #263442;
+      transform: none;
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--text-main);
+      border: 1px solid var(--border-medium);
+    }
+
+    .btn-secondary:hover {
+      background: #f7f8fa;
+      border-color: #aeb7c2;
+      transform: none;
+    }
+
+    /* Chiffres : bandeau sobre plutôt que cartes SaaS */
+    .metrics-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .metric-card {
+      border: 0;
+      border-right: 1px solid var(--border-subtle);
+      border-radius: 0;
+      background: transparent;
+      padding: 22px 20px 20px 0;
+    }
+
+    .metric-card:last-child {
+      border-right: 0;
+      padding-left: 20px;
+    }
+
+    .metric-card:not(:first-child) {
+      padding-left: 20px;
+    }
+
+    .metric-card:hover {
+      border-color: var(--border-subtle);
+      background: transparent;
+      transform: none;
+    }
+
+    .metric-card::before,
+    .metric-card:hover::before {
+      display: none;
+    }
+
+    .metric-val {
+      font-family: var(--font-sans);
+      font-size: 2rem;
+      font-weight: 750;
+    }
+
+    .metric-val span {
+      color: var(--accent-blue);
+      font-size: .95rem;
+    }
+
+    .metric-label {
+      font-size: .82rem;
+    }
+
+    .metric-desc {
+      font-size: .77rem;
+    }
+
+    /* Sections */
+    .section {
+      padding: 86px 0;
+      border-top: 0;
+    }
+
+    .section-header {
+      margin-bottom: 36px;
+      max-width: 760px;
+    }
+
+    .section-kicker {
+      font-family: var(--font-sans);
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--accent-blue);
+      font-size: .78rem;
+      margin-bottom: 6px;
+    }
+
+    .section-kicker::before {
+      content: "";
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: currentColor;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.25rem);
+      letter-spacing: -.035em;
+    }
+
+    /* Les blocs restent structurés, mais ressemblent à un dossier professionnel */
+    .exp-card,
+    .project-card,
+    .skill-card,
+    .dual-box,
+    .vision-banner {
+      background: #fff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      box-shadow: none;
+    }
+
+    .exp-card {
+      padding: 30px;
+    }
+
+    .exp-card:hover,
+    .skill-card:hover,
+    .contact-box:hover {
+      transform: none;
+      border-color: var(--border-medium);
+      box-shadow: none;
+    }
+
+    .exp-company,
+    .edu-school,
+    .project-category,
+    .contact-box-action {
+      color: var(--accent-blue);
+    }
+
+    .badge {
+      font-family: var(--font-sans);
+      border-radius: 4px;
+    }
+
+    .tech-pill,
+    .skill-tag,
+    .skill-context-badge {
+      font-family: var(--font-sans);
+      border-radius: 4px;
+    }
+
+    .exp-tech-stack {
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .projects-container {
+      gap: 32px;
+    }
+
+    .project-card {
+      padding: 32px;
+    }
+
+    .project-name {
+      font-size: 1.45rem;
+      letter-spacing: -.025em;
+    }
+
+    /* Remplace l'esthétique "terminal hacker" par un encadré technique neutre */
+    .terminal-window {
+      background: #17212b;
+      border: 0;
+      border-radius: 6px;
+      box-shadow: none;
+    }
+
+    .terminal-header {
+      background: #202c38;
+    }
+
+    .terminal-controls {
+      background: #1b2732;
+    }
+
+    /* Compétences */
+    .skills-filters {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 14px;
+    }
+
+    .filter-btn {
+      border-radius: 4px;
+      padding: 7px 12px;
+      background: #fff;
+    }
+
+    .filter-btn.active {
+      background: #17212b;
+      color: #fff;
+    }
+
+    .skill-card {
+      padding: 22px;
+    }
+
+    /* Formation / projet */
+    .dual-box {
+      padding: 28px;
+    }
+
+    .edu-item {
+      border-left: 2px solid var(--accent-blue);
+    }
+
+    .soft-icon {
+      border-radius: 4px;
+      background: var(--accent-blue-subtle);
+      color: var(--accent-blue);
+    }
+
+    .vision-banner {
+      border-left: 3px solid var(--accent-blue);
+    }
+
+    .vision-banner::before {
+      display: none;
+    }
+
+    /* Footer plus institutionnel */
+    .site-footer {
+      padding: 56px 0 32px;
+      background: #17212b;
+      color: #fff;
+    }
+
+    .contact-box {
+      background: #202c38;
+      border-color: rgba(255, 255, 255, .12);
+      border-radius: 5px;
+    }
+
+    .contact-box-label,
+    .footer-bottom {
+      color: #aeb9c5;
+    }
+
+    .contact-box-val {
+      color: #fff;
+    }
+
+    .contact-box-action {
+      color: #b9d1ec;
+    }
+
+    .footer-bottom {
+      border-color: rgba(255, 255, 255, .12);
+      font-family: var(--font-sans);
+    }
+
+    /* Désactive les micro-effets "démo" sans supprimer les fonctions */
+    .metric-card,
+    .exp-card,
+    .project-card,
+    .skill-card,
+    .contact-box,
+    .btn,
+    .nav-link,
+    .filter-btn {
+      transition: border-color .18s ease, background-color .18s ease, color .18s ease;
+    }
+
+    @media (max-width: 900px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .metric-card {
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .metric-card:nth-child(2) {
+        border-right: 0;
+      }
+
+      .metric-card:nth-child(3) {
+        padding-left: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding: 58px 0 46px;
+      }
+
+      .section {
+        padding: 62px 0;
+      }
+
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metric-card,
+      .metric-card:not(:first-child),
+      .metric-card:last-child {
+        border-right: 0;
+        padding: 18px 0;
+      }
+
+      .project-card,
+      .exp-card,
+      .dual-box {
+        padding: 22px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<nav class="nav">
-  <div class="wrap">
-    <div class="nav-mark">Samuel Avril <span>— book de compétences</span></div>
-    <ul class="nav-links">
-      <li><a href="#profil">Profil</a></li>
-      <li><a href="#experience">Expérience</a></li>
-      <li><a href="#competences">Compétences</a></li>
-      <li><a href="#projet">Projet PAF</a></li>
-      <li><a href="#enigma">Enigma</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
+  <!-- Barre de progression de défilement -->
+  <div id="scroll-progress"></div>
 
-<header class="hero" id="profil">
-  <div class="wrap">
-    <div class="hero-inner framed">
-      <span class="corner corner-tl"></span><span class="corner corner-tr"></span>
-      <span class="corner corner-bl"></span><span class="corner corner-br"></span>
-
-      <div class="doc-ref">Dossier réf. <b>GOP Reims 25–26</b> — Grand Oral Professionnel</div>
-
-      <h1>Samuel Avril</h1>
-      <div class="role">Sécurité informatique — consultant sécurité &amp; administration systèmes / réseau</div>
-
-      <p class="pitch">
-        En dernière année de Master Sécurité Informatique à l'ESGI Reims, je construis mon profil à
-        l'intersection de deux pratiques : une formation qui couvre aussi bien l'attaque que la défense,
-        et deux alternances où j'ai géré au quotidien l'informatique de sites bien réels — du dépannage
-        utilisateur au durcissement du système d'information.
-      </p>
-
-      <div class="stat-row">
-        <div class="stat">
-          <div class="num">260</div>
-          <div class="lbl">jours en entreprise sur le cycle Mastère</div>
-        </div>
-        <div class="stat">
-          <div class="num">2</div>
-          <div class="lbl">alternances — IVT Security &amp; Forgex France</div>
-        </div>
-        <div class="stat">
-          <div class="num">805</div>
-          <div class="lbl">TOEIC — anglais professionnel</div>
-        </div>
+  <!-- Barre système & statut de disponibilité -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-item">
+        <span class="status-pulse"></span>
+        <span>Disponible pour opportunités • Consultant Sécurité / Admin Sys &amp; Réseau</span>
+      </div>
+      <div class="top-bar-item">
+        <span id="local-clock">Reims, FR • 15:24:00</span>
+        <span>•</span>
+        <span>ESGI GOP 2025–2026</span>
       </div>
     </div>
   </div>
-</header>
 
-<main>
-
-  <section class="section" id="experience">
-    <div class="wrap">
-      <div class="kicker"><span class="idx">01</span><h2>Expérience professionnelle</h2></div>
-
-      <div class="timeline">
-        <div class="role-block">
-          <div class="role-head">
-            <h3>Administrateur systèmes &amp; réseau — alternance</h3>
-            <span class="role-period">En cours</span>
-          </div>
-          <div class="role-org">Forgex France — informatique de 4 sites</div>
-          <ul>
-            <li>Assure le support informatique de niveau 1 à 3 pour l'ensemble des utilisateurs des quatre sites</li>
-            <li>Configure et fait évoluer les règles de sécurité du firewall Cato Networks</li>
-            <li>Déploie des campagnes de sensibilisation au phishing auprès des équipes</li>
-            <li>Pilote la migration des postes et logiciels vers un nouveau domaine suite au rachat d'une société</li>
-            <li>Administre l'environnement Microsoft 365 (comptes, droits, sécurité)</li>
-            <li>Rédige des GPO pour durcir la sécurité du parc et gérer les droits d'accès (IAM)</li>
-          </ul>
-        </div>
-
-        <div class="role-block">
-          <div class="role-head">
-            <h3>Technicien systèmes &amp; sécurité — alternance</h3>
-            <span class="role-period">1 an</span>
-          </div>
-          <div class="role-org">IVT Security</div>
-          <ul>
-            <li>Installe des systèmes de contrôle d'accès (Micro Sésame) et des solutions de vidéosurveillance multi-marques</li>
-            <li>Déploie et configure des supervisions Zabbix pour le suivi des infrastructures clients</li>
-            <li>Virtualise et prépare des infrastructures sous Proxmox pour de grands comptes</li>
-            <li>Prépare et configure des serveurs et postes de travail avant livraison client</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section alt" id="formation">
-    <div class="wrap">
-      <div class="kicker"><span class="idx">02</span><h2>Formation</h2></div>
-      <div class="edu-list">
-        <div class="edu-item">
-          <div>
-            <h3>Master Sécurité Informatique</h3>
-            <div class="edu-meta">ESGI Reims — 2ᵉ année de Mastère, en cours</div>
-          </div>
-        </div>
-        <div class="edu-item">
-          <div>
-            <h3>Licence Chef de Projet Logiciel et Réseau</h3>
-            <div class="edu-meta">ESGI Reims — obtenue en alternance chez IVT Security</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="competences">
-    <div class="wrap">
-      <div class="kicker"><span class="idx">03</span><h2>Compétences techniques</h2></div>
-      <p class="lede" style="margin-bottom:30px;">Construites en cours et éprouvées en entreprise.</p>
-
-      <div class="panels">
-        <div class="panel" style="grid-column: 1 / -1;">
-          <h3>Sécurité défensive &amp; SOC</h3>
-          <div class="desc">Détecter, gérer les accès et répondre aux incidents — au cœur de la pratique quotidienne sur Cato Networks.</div>
-          <div class="tag-row">
-            <span class="tag">Durcissement Windows</span>
-            <span class="tag">Gestion des identités &amp; accès (IAM)</span>
-            <span class="tag">Blue team / SOC</span>
-            <span class="tag">Cyber threat intelligence</span>
-          </div>
-        </div>
-
-        <div class="panel" style="grid-column: 1 / -1;">
-          <h3>Infrastructure &amp; systèmes</h3>
-          <div class="desc">Administrer et sécuriser des environnements systèmes et réseau.</div>
-          <div class="tag-row">
-            <span class="tag">Windows PowerShell</span>
-            <span class="tag">Sécurité avancée des réseaux</span>
-            <span class="tag">Stratégies de groupe (GPO)</span>
-          </div>
-        </div>
-
-        <div class="panel" style="grid-column: 1 / -1;">
-          <h3>Outils &amp; pratique terrain</h3>
-          <div class="desc">Une pratique acquise directement en entreprise, au-delà des cours.</div>
-          <div class="tag-row">
-            <span class="tag">Zabbix</span>
-            <span class="tag">Proxmox</span>
-            <span class="tag">Cato Networks</span>
-            <span class="tag">Switchs Omada</span>
-            <span class="tag">Microsoft 365 Admin Center</span>
-            <span class="tag">Active Directory / GPO</span>
-            <span class="tag">Micro Sésame</span>
-            <span class="tag">Support N1 – N3</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section alt" id="projet">
-    <div class="wrap">
-      <div class="kicker"><span class="idx">04</span><h2>Projet PAF — Pénétration &amp; Attaque Furtive</h2></div>
-      <div class="project-context">Projet de 4ᵉ année — celui qui me tient le plus à cœur</div>
-
-      <p class="lede">
-        Un boîtier dissimulé dans une fausse borne Wi-Fi, branché discrètement sur un réseau interne,
-        pour démontrer qu'une intrusion physique furtive peut ouvrir un accès distant complet.
-      </p>
-      <p>
-        Le dispositif repose sur un Raspberry Pi caché à l'intérieur d'une fausse borne Wi-Fi Ubiquiti,
-        connecté sans être repéré au réseau interne d'une organisation cible. Une fois branché, il établit
-        un callback Socat vers un serveur de commande et de contrôle (C2), en passant par un serveur de
-        rebond qui masque l'origine de la connexion. L'objectif : pouvoir exécuter des commandes à distance
-        sur le réseau interne où le boîtier est branché, comme le ferait un attaquant ayant pris pied
-        physiquement dans les locaux.
-      </p>
-
-      <div class="schema">
-        <div class="schema-node">
-          <span class="si">1</span>
-          <h4>Fausse borne Ubiquiti + Raspberry Pi</h4>
-          <p>Branchée discrètement sur le réseau interne cible</p>
-        </div>
-        <div class="schema-arrow">→</div>
-        <div class="schema-node">
-          <span class="si">2</span>
-          <h4>Callback Socat</h4>
-          <p>Connexion sortante furtive depuis le réseau interne</p>
-        </div>
-        <div class="schema-arrow">→</div>
-        <div class="schema-node">
-          <span class="si">3</span>
-          <h4>Serveur de rebond</h4>
-          <p>Relaye la connexion et masque son origine réelle</p>
-        </div>
-        <div class="schema-arrow">→</div>
-        <div class="schema-node">
-          <span class="si">4</span>
-          <h4>Poste opérateur (C2)</h4>
-          <p>Exécution de commandes à distance sur le réseau cible</p>
-        </div>
-      </div>
-      <div class="schema-caption">Schéma simplifié du flux de communication du dispositif.</div>
-
-      <div class="tag-row" style="margin-top:28px;">
-        <span class="tag">Ingénierie sociale &amp; reconnaissance</span>
-        <span class="tag">Dissimulation matérielle</span>
-        <span class="tag">Pivoting réseau</span>
-        <span class="tag">Command &amp; Control</span>
-        <span class="tag">Discrétion opérationnelle</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="enigma">
-    <div class="wrap">
-      <div class="kicker"><span class="idx">05</span><h2>Projet Enigma — automatisation d'audits</h2></div>
-      <div class="project-context">Projet de groupe — 4 contributeurs</div>
-
-      <p class="lede">
-        Un script shell qui centralise les outils d'audit et de test d'intrusion les plus courants
-        derrière un seul menu, pour standardiser et accélérer la phase de reconnaissance.
-      </p>
-      <p>
-        Développé en bash avec trois camarades de promotion, Enigma propose un menu guidé pour lancer
-        un audit selon la cible visée : Active Directory, réseau, poste Windows, poste Linux ou
-        application web. Le script vérifie automatiquement la présence des outils nécessaires et
-        propose de les installer si besoin, avant de guider l'utilisateur pas à pas dans la commande
-        à exécuter. Chaque audit vient alimenter un rapport HTML généré automatiquement en fin de script.
-      </p>
-
-      <div class="tag-row" style="margin-top:20px;">
-        <span class="tag">Active Directory</span>
-        <span class="tag">Réseau</span>
-        <span class="tag">Windows</span>
-        <span class="tag">Linux</span>
-        <span class="tag">Application Web</span>
-      </div>
-      <div class="tag-row" style="margin-top:10px;">
-        <span class="tag">Scripting Bash</span>
-        <span class="tag">Orchestration d'outils de pentest</span>
-        <span class="tag">Reporting automatisé</span>
-        <span class="tag">Travail en équipe</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="section alt" id="humain">
-    <div class="wrap">
-      <div class="kicker"><span class="idx">06</span><h2>Savoir-être &amp; langues</h2></div>
-
-      <div class="two-col">
+  <!-- En-tête de navigation -->
+  <header class="site-nav">
+    <div class="container nav-inner">
+      <a href="#profil" class="nav-brand">
+        <div class="brand-avatar">SA</div>
         <div>
-          <div class="trait">
-            <span class="mark"></span>
-            <div>
-              <h4>Réactivité</h4>
-              <p>Gérer le support N1 à N3 au quotidien sur quatre sites impose de traiter vite, sans négliger le fond.</p>
+          <div class="brand-title">Samuel Avril</div>
+          <div class="brand-subtitle">Book de compétences</div>
+        </div>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="#profil" class="nav-link">Profil</a>
+        <a href="#experience" class="nav-link">Expérience</a>
+        <a href="#projets" class="nav-link">Projets</a>
+        <a href="#competences" class="nav-link">Compétences</a>
+        <a href="#formation" class="nav-link">Formation</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="cmd-badge" id="cmd-trigger" aria-label="Ouvrir la palette de commandes">
+          <span>Recherche</span>
+          <span class="cmd-key">⌘K</span>
+        </button>
+        <button class="btn-icon" id="theme-toggle" aria-label="Basculer le mode clair/sombre" title="Changer de thème">
+          <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero" id="profil">
+      <div class="container">
+        <div class="hero-meta">
+          <span class="hero-meta-badge">Grand Oral Professionnel</span>
+          <span>Dossier réf. ESGI Reims • Mastère Sécurité 2025–2026</span>
+        </div>
+
+        <h1 class="hero-title">Samuel Avril</h1>
+        <div class="hero-role">Sécurité informatique — Consultant sécurité &amp; Administration systèmes / réseaux</div>
+
+        <p class="hero-pitch">
+          En dernière année de <strong>Master Sécurité Informatique à l'ESGI Reims</strong>, j'ai pu construire mon
+          profil
+          grâce à deux pratiques fondamentales : une formation technique poussée couvrant
+          aussi bien l'<strong>attaque que la défense</strong>, et deux expériences d'alternance où j'ai pu gérer au
+          quotidien
+          l'informatique de sites réels — du <strong>support utilisateur multi-sites au durcissement global du
+            SI</strong>.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#projets" class="btn btn-primary">
+            <span>Explorer les projets phares</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <button class="btn btn-secondary" onclick="copyContact('email', 'avril.sam5308@gmail.com')">
+            <span>Copier l'email</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          </button>
+          <a href="https://www.linkedin.com/in/samuel-avril-287338292" target="_blank" rel="noopener"
+            class="btn btn-secondary">
+            <span>LinkedIn</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <button class="btn btn-secondary" onclick="window.print()" title="Exporter en PDF ou imprimer">
+            <span>Vue Jury / Print</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Cartes métriques -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-val">260 <span>j</span></div>
+            <div class="metric-label">En entreprise</div>
+            <div class="metric-desc">Jours cumulés sur le cycle Mastère en immersion opérationnelle</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">4 <span>sites</span></div>
+            <div class="metric-label">Parc administré</div>
+            <div class="metric-desc">Support N1-N3 et sécurité pour l'ensemble des sites Forgex France</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">2 <span>alternances</span></div>
+            <div class="metric-label">Expériences concrètes</div>
+            <div class="metric-desc">Forgex France (SysAdmin &amp; SASE) &amp; IVT Security (Intégration)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">805 <span>pts</span></div>
+            <div class="metric-label">TOEIC B2</div>
+            <div class="metric-desc">Anglais professionnel certifié pour contextes internationaux</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION EXPÉRIENCE -->
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Parcours Opérationnel</div>
+          <h2 class="section-title">Expérience en entreprise</h2>
+          <p class="section-subtitle">Administration d'infrastructures et mise en œuvre des bonnes pratiques de
+            sécurité.</p>
+        </div>
+
+        <div class="timeline-cards">
+          <!-- FORGEX FRANCE -->
+          <article class="exp-card">
+            <div class="exp-header">
+              <div>
+                <h3 class="exp-role">Administrateur Systèmes &amp; Réseau — Alternance</h3>
+                <div class="exp-company">
+                  <span>Forgex France</span>
+                  <span class="exp-company-scope">• Gestion informatique de 4 sites industriels</span>
+                </div>
+              </div>
+              <div class="exp-badges">
+                <span class="badge badge-ongoing">En cours • 2ᵉ année Mastère</span>
+              </div>
+            </div>
+
+            <div class="exp-body">
+              <div class="exp-tasks">
+                <div class="exp-task-item">
+                  <div class="exp-task-bullet"></div>
+                  <div><strong>Support global N1 à N3 :</strong> Résolution des incidents matériels, systèmes et
+                    applicatifs pour l'ensemble des utilisateurs répartis sur les 4 sites de l'entreprise.</div>
+                </div>
+                <div class="exp-task-item">
+                  <div class="exp-task-bullet"></div>
+                  <div><strong>Sécurité réseau &amp; Firewalling SASE :</strong> Configuration et ajout de règles de
+                    filtrage et de sécurité sur le pare-feu cloud <em>Cato Networks</em>.</div>
+                </div>
+                <div class="exp-task-item">
+                  <div class="exp-task-bullet"></div>
+                  <div><strong>Migration post-rachat :</strong> Pilotage de la bascule des postes de travail et
+                    logiciels métiers vers un nouveau domaine Active Directory suite à une acquisition d'entreprise.
+                  </div>
+                </div>
+                <div class="exp-task-item">
+                  <div class="exp-task-bullet"></div>
+                  <div><strong>Administration M365 &amp; IAM :</strong> Gestion des comptes, attributions de licences,
+                    sécurisation des accès et gestion des droits utilisateurs.</div>
+                </div>
+                <div class="exp-task-item">
+                  <div class="exp-task-bullet"></div>
+                  <div><strong>Durcissement du parc (GPO) :</strong> Rédaction et déploiement de stratégies de groupe
+                    ciblées pour standardiser et renforcer la sécurité des postes Windows.</div>
+                </div>
+                <div class="exp-task-item">
+                  <div class="exp-task-bullet"></div>
+                  <div><strong>Sensibilisation aux cybermenaces :</strong> Préparation et présentation de campagnes de
+                    sensibilisation au phishing auprès des collaborateurs.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="exp-tech-stack">
+              <span class="tech-pill">Cato Networks (SASE)</span>
+              <span class="tech-pill">Active Directory &amp; GPO</span>
+              <span class="tech-pill">Microsoft 365 Admin</span>
+              <span class="tech-pill">Windows PowerShell</span>
+              <span class="tech-pill">Sensibilisation Phishing</span>
+              <span class="tech-pill">Support N1-N3</span>
+            </div>
+          </article>
+
+          <!-- IVT SECURITY -->
+          <article class="exp-card">
+            <div class="exp-header">
+              <div>
+                <h3 class="exp-role">Technicien Systèmes &amp; Sécurité — Alternance</h3>
+                <div class="exp-company">
+                  <span>IVT Security</span>
+                  <span class="exp-company-scope">• Intégrateur sécurité physique &amp; informatique</span>
+                </div>
+              </div>
+              <div class="exp-badges">
+                <span class="badge badge-past">1 an • Licence Réseaux</span>
+              </div>
+            </div>
+
+            <div class="exp-body">
+              <div class="exp-tasks">
+                <div class="exp-task-item">
+                  <div class="exp-task-bullet"></div>
+                  <div><strong>Contrôle d'accès &amp; Vidéosurveillance :</strong> Déploiement et paramétrage de
+                    solutions de contrôle d'accès physique (<em>Micro Sésame</em>) et de systèmes de vidéosurveillance
+                    multi-marques.</div>
+                </div>
+                <div class="exp-task-item">
+                  <div class="exp-task-bullet"></div>
+                  <div><strong>Supervision d'infrastructures :</strong> Déploiement, configuration et personnalisation
+                    de serveurs <em>Zabbix</em> pour le monitoring proactif des équipements clients.</div>
+                </div>
+                <div class="exp-task-item">
+                  <div class="exp-task-bullet"></div>
+                  <div><strong>Virtualisation d'environnements :</strong> Préparation, configuration et sécurisation
+                    d'infrastructures virtualisées sous <em>Proxmox VE</em>.</div>
+                </div>
+                <div class="exp-task-item">
+                  <div class="exp-task-bullet"></div>
+                  <div><strong>Intégration matérielle en atelier :</strong> Préparation, installation d'OS et
+                    masterisation de serveurs et postes clients avant recette et livraison sur site.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="exp-tech-stack">
+              <span class="tech-pill">Proxmox VE</span>
+              <span class="tech-pill">Zabbix Monitoring</span>
+              <span class="tech-pill">Micro Sésame</span>
+              <span class="tech-pill">Vidéosurveillance IP</span>
+              <span class="tech-pill">Masterisation Serveurs</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION PROJETS MAJEURS -->
+    <section class="section" id="projets">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Démonstrateurs Techniques</div>
+          <h2 class="section-title">Projets phares de spécialisation</h2>
+          <p class="section-subtitle">Études de cas montrant la capacité à concevoir des architectures d'intrusion
+            physique furtive et à automatiser la détection de vulnérabilités.</p>
+        </div>
+
+        <div class="projects-container">
+
+          <!-- PROJET 1 : PAF -->
+          <article class="project-card">
+            <div class="project-top">
+              <div>
+                <div class="project-category">Projet Mastère 4ᵉ année • Concepteur &amp; Réalisateur</div>
+                <h3 class="project-name">Projet PAF — Pénétration &amp; Attaque Furtive</h3>
+              </div>
+              <span class="badge badge-ongoing">Projet Coup de Cœur</span>
+            </div>
+
+            <div class="project-lead">
+              Outil d'intrusion physique dissimulé dans une fausse borne Wi-Fi Ubiquiti, établissant un point d'accès
+              persistant et furtif sur le réseau interne cible.
+            </div>
+
+            <p class="project-desc">
+              Le dispositif intègre un Raspberry Pi configuré pour opérer furtivement dès son branchement physique.
+              Il établit une communication chiffrée sortante (callback Socat) vers un serveur de rebond intermédiaire
+              (vps offshore),
+              qui masque la localisation finale du C2. Il permet d'exécuter des actions d'audit et de pivoting
+              interne sans éveiller les alertes de périmètre traditionnelles.
+            </p>
+
+            <!-- Contrôles interactifs d'analyse -->
+            <div class="paf-controls">
+              <div class="paf-mode-toggle">
+                <button class="paf-mode-btn active-red" id="btn-red-mode" onclick="setPafMode('red')">Vue Offensive (Red
+                  Team)</button>
+                <button class="paf-mode-btn" id="btn-blue-mode" onclick="setPafMode('blue')">Remédiation &amp; Défense
+                  (Blue Team)</button>
+              </div>
+              <div class="paf-hint">Cliquez sur une étape pour inspecter les détails techniques</div>
+            </div>
+
+            <!-- Schéma de flux interactif -->
+            <div class="topology-flow" id="paf-nodes">
+              <div class="topo-node active-node" onclick="selectPafNode(1)">
+                <span class="topo-node-idx">01. POINT D'INTRUSION</span>
+                <div class="topo-node-title">Boîtier Ubiquiti piégé</div>
+                <div class="topo-node-sub">Raspberry Pi sous coque UniFi AP</div>
+              </div>
+
+              <div class="topo-node" onclick="selectPafNode(2)">
+                <span class="topo-node-idx">02. CANAL SORTANT</span>
+                <div class="topo-node-title">Callback Socat TLS</div>
+                <div class="topo-node-sub">Flux chiffré sur port HTTPS/443</div>
+              </div>
+
+              <div class="topo-node" onclick="selectPafNode(3)">
+                <span class="topo-node-idx">03. RELAIS D'ANONYMISATION</span>
+                <div class="topo-node-title">Serveur de Rebond</div>
+                <div class="topo-node-sub">Masquage d'origine &amp; proxying</div>
+              </div>
+
+              <div class="topo-node" onclick="selectPafNode(4)">
+                <span class="topo-node-idx">04. CONTRÔLE OPÉRATEUR</span>
+                <div class="topo-node-title">Poste C2 Distant</div>
+                <div class="topo-node-sub">Exécution &amp; pivoting interne</div>
+              </div>
+            </div>
+
+            <!-- Volet de détails dynamique -->
+            <div class="paf-detail-box" id="paf-detail-box">
+              <div class="paf-detail-header">
+                <div class="paf-detail-title" id="paf-detail-title">
+                  <span>Point d'intrusion physique : Fausse borne UniFi</span>
+                </div>
+                <span class="badge badge-ongoing" id="paf-detail-badge">Vecteur Matériel</span>
+              </div>
+              <div class="paf-detail-content" id="paf-detail-desc">
+                Le hardware est intégré dans un boîtier officiel Ubiquiti vide. Dès son raccordement au switch du
+                bâtiment cible en PoE/Ethernet, un script d'initialisation désactive les bannières visibles, récupère
+                une IP locale discrète et amorce le canal de rappel sans bruit réseau.
+              </div>
+              <div class="paf-detail-tech" id="paf-detail-tags">
+                <span class="tech-pill">Raspberry Pi OS Lite</span>
+                <span class="tech-pill">Dissimulation OEM</span>
+                <span class="tech-pill">Ingénierie Sociale</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJET 2 : ENIGMA -->
+          <article class="project-card">
+            <div class="project-top">
+              <div>
+                <div class="project-category">Projet de promotion • 4 contributeurs • Développement Bash</div>
+                <h3 class="project-name">Projet Enigma — Automatisation d'Audits Pentest</h3>
+              </div>
+              <span class="badge badge-past">Outillage Pentest</span>
+            </div>
+
+            <div class="project-lead">
+              Framework Bash modulaire permettant de standardiser la phase de reconnaissance et d'audit technique selon
+              le périmètre ciblé, avec génération automatique de livrables HTML.
+            </div>
+
+            <p class="project-desc">
+              Face à la dispersion des outils de diagnostic en test d'intrusion, Enigma rassemble au sein d'une
+              interface console intuitive les modules spécialisés (Active Directory, scans réseaux, endpoints
+              Windows/Linux, apps web). Le script vérifie dynamiquement les prérequis système et structure les résultats
+              en rapports exploitables.
+            </p>
+
+            <!-- Console interactive Enigma -->
+            <div class="terminal-window">
+              <div class="terminal-header">
+                <div class="terminal-dots">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                </div>
+                <div class="terminal-title">bash — ./enigma.sh — Terminal Interactif</div>
+                <div style="width: 40px;"></div>
+              </div>
+
+              <div class="terminal-controls">
+                <button class="term-btn" onclick="runTerminalCmd('ad')">Audit Active Directory</button>
+                <button class="term-btn" onclick="runTerminalCmd('network')">Scan Réseau Furtif</button>
+                <button class="term-btn" onclick="runTerminalCmd('web')">Audit Web App</button>
+                <button class="term-btn" onclick="runTerminalCmd('report')">Générer Rapport HTML</button>
+                <button class="term-btn" onclick="runTerminalCmd('help')">Options &amp; Aide</button>
+                <button class="term-btn" onclick="runTerminalCmd('clear')" style="margin-left: auto;">Effacer</button>
+              </div>
+
+              <div class="terminal-body" id="term-output-area">
+                <div><span class="term-prompt">samuel@esgi-reims:~$</span> <span class="term-cmd">./enigma.sh
+                    --interactive</span></div>
+                <div class="term-output">
+                  [+] Enigma Pentest Framework v2.4 initialisé.<br>
+                  [+] Contrôle des dépendances : <span class="term-success">Nmap (OK)</span> | <span
+                    class="term-success">Impacket (OK)</span> | <span class="term-success">BloodHound (OK)</span> |
+                  <span class="term-success">Nikto (OK)</span><br>
+                  [i] Prêt. Cliquez sur un bouton de commande ci-dessus pour simuler l'exécution.
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION COMPÉTENCES TECHNIQUES -->
+    <section class="section" id="competences">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Savoir-faire Technique</div>
+          <h2 class="section-title">Matrice de compétences</h2>
+          <p class="section-subtitle">Compétences construites à travers le cursus Mastère et validées en production lors
+            des missions en entreprise.</p>
+        </div>
+
+        <div class="skills-filters">
+          <button class="filter-btn active" onclick="filterSkills('all')">Toutes les compétences</button>
+          <button class="filter-btn" onclick="filterSkills('defensive')">Sécurité Défensive &amp; SOC</button>
+          <button class="filter-btn" onclick="filterSkills('infra')">Systèmes &amp; Réseaux</button>
+          <button class="filter-btn" onclick="filterSkills('offensive')">Sécurité Offensive &amp; Pentest</button>
+          <button class="filter-btn" onclick="filterSkills('tools')">Outils Terrain &amp; Supervison</button>
+        </div>
+
+        <div class="skills-grid" id="skills-container">
+
+          <!-- Compétence 1 -->
+          <div class="skill-card" data-category="defensive">
+            <div class="skill-card-top">
+              <h3 class="skill-title">Cato Networks (SASE) &amp; Firewalling</h3>
+              <span class="skill-context-badge">Forgex France</span>
+            </div>
+            <p class="skill-desc">Administration quotidienne des règles de sécurité, analyse des flux WAN chiffrés,
+              gestion des menaces et segmentation des 4 sites.</p>
+            <div class="skill-tags">
+              <span class="skill-tag">Filtrage TLS</span>
+              <span class="skill-tag">Règles WAN</span>
+              <span class="skill-tag">Sécurité SASE</span>
             </div>
           </div>
-          <div class="trait">
-            <span class="mark"></span>
-            <div>
-              <h4>Polyvalence</h4>
-              <p>Passer de l'installation terrain à l'administration cloud, du réseau au poste utilisateur.</p>
+
+          <!-- Compétence 2 -->
+          <div class="skill-card" data-category="defensive">
+            <div class="skill-card-top">
+              <h3 class="skill-title">Durcissement Système &amp; GPO</h3>
+              <span class="skill-context-badge">Forgex France</span>
+            </div>
+            <p class="skill-desc">Rédaction et application de GPO conformes aux recommandations ANSSI pour réduire la
+              surface d'attaque du parc Windows.</p>
+            <div class="skill-tags">
+              <span class="skill-tag">CIS Benchmark</span>
+              <span class="skill-tag">IAM</span>
+              <span class="skill-tag">Active Directory</span>
             </div>
           </div>
-          <div class="trait">
-            <span class="mark"></span>
-            <div>
-              <h4>Communication</h4>
-              <p>Sensibiliser les équipes aux risques de sécurité, notamment sur le phishing.</p>
+
+          <!-- Compétence 3 -->
+          <div class="skill-card" data-category="infra">
+            <div class="skill-card-top">
+              <h3 class="skill-title">Administration Microsoft 365 &amp; Azure AD</h3>
+              <span class="skill-context-badge">Forgex France</span>
+            </div>
+            <p class="skill-desc">Gestion centralisée des identités, politiques d'accès conditionnel, gestion des droits
+              Exchange/SharePoint et audits d'accès.</p>
+            <div class="skill-tags">
+              <span class="skill-tag">Entra ID</span>
+              <span class="skill-tag">MFA</span>
+              <span class="skill-tag">M365 Security</span>
             </div>
           </div>
-          <div class="trait">
-            <span class="mark"></span>
-            <div>
-              <h4>Compréhension des problématiques</h4>
-              <p>Adapter chaque solution aux contraintes réelles de l'entreprise plutôt qu'à la théorie seule.</p>
+
+          <!-- Compétence 4 -->
+          <div class="skill-card" data-category="tools">
+            <div class="skill-card-top">
+              <h3 class="skill-title">Virtualisation Proxmox VE</h3>
+              <span class="skill-context-badge">IVT Security</span>
+            </div>
+            <p class="skill-desc">Création de clusters de virtualisation, gestion des VLANs virtuels, sauvegardes
+              automatisées et déploiement d'appliances client.</p>
+            <div class="skill-tags">
+              <span class="skill-tag">KVM</span>
+              <span class="skill-tag">LXC</span>
+              <span class="skill-tag">Clustering</span>
+            </div>
+          </div>
+
+          <!-- Compétence 5 -->
+          <div class="skill-card" data-category="tools">
+            <div class="skill-card-top">
+              <h3 class="skill-title">Supervision Zabbix</h3>
+              <span class="skill-context-badge">IVT Security</span>
+            </div>
+            <p class="skill-desc">Déploiement d'agents Zabbix, sondes SNMP, création de dashboards de télémétrie
+              personnalisés et alertes d'incidents.</p>
+            <div class="skill-tags">
+              <span class="skill-tag">SNMP</span>
+              <span class="skill-tag">Templates</span>
+              <span class="skill-tag">Monitoring</span>
+            </div>
+          </div>
+
+          <!-- Compétence 6 -->
+          <div class="skill-card" data-category="tools">
+            <div class="skill-card-top">
+              <h3 class="skill-title">Contrôle d'Accès (Micro Sésame)</h3>
+              <span class="skill-context-badge">IVT Security</span>
+            </div>
+            <p class="skill-desc">Installation, interfaçage avec les lecteurs de badges physiques, gestion des profils
+              horaires et conformité sécurité des sites sensibles.</p>
+            <div class="skill-tags">
+              <span class="skill-tag">Sécurité Physique</span>
+              <span class="skill-tag">UTL</span>
+              <span class="skill-tag">Vidéosurveillance</span>
+            </div>
+          </div>
+
+          <!-- Compétence 7 -->
+          <div class="skill-card" data-category="offensive">
+            <div class="skill-card-top">
+              <h3 class="skill-title">Scripting Bash &amp; PowerShell</h3>
+              <span class="skill-context-badge">Projet Enigma</span>
+            </div>
+            <p class="skill-desc">Développement d'outils d'automatisation, parsing de logs de sécurité, orchestration
+              d'outils de scan et scripts d'administration système.</p>
+            <div class="skill-tags">
+              <span class="skill-tag">Bash</span>
+              <span class="skill-tag">PowerShell</span>
+              <span class="skill-tag">Automatisation</span>
+            </div>
+          </div>
+
+          <!-- Compétence 8 -->
+          <div class="skill-card" data-category="offensive">
+            <div class="skill-card-top">
+              <h3 class="skill-title">Pivoting &amp; Reconnaissance Furtive</h3>
+              <span class="skill-context-badge">Projet PAF</span>
+            </div>
+            <p class="skill-desc">Techniques d'accès physique, rebond réseau (Socat, SSH tunnels), tunnel chiffré et
+              contournement des restrictions de périmètre.</p>
+            <div class="skill-tags">
+              <span class="skill-tag">Socat</span>
+              <span class="skill-tag">C2 Proxy</span>
+              <span class="skill-tag">Red Teaming</span>
+            </div>
+          </div>
+
+          <!-- Compétence 9 -->
+          <div class="skill-card" data-category="infra">
+            <div class="skill-card-top">
+              <h3 class="skill-title">Réseaux &amp; Commutation Omada</h3>
+              <span class="skill-context-badge">Forgex &amp; ESGI</span>
+            </div>
+            <p class="skill-desc">Configuration des switchs managés TP-Link Omada, segmentation par VLAN, routage
+              inter-VLAN et sécurisation des ports d'accès.</p>
+            <div class="skill-tags">
+              <span class="skill-tag">VLAN 802.1Q</span>
+              <span class="skill-tag">QoS</span>
+              <span class="skill-tag">STP</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION FORMATION & SAVOIR-ÊTRE & PROJET PROFESSIONNEL -->
+    <section class="section" id="formation">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Parcours &amp; Posture</div>
+          <h2 class="section-title">Formation, savoir-être &amp; vision</h2>
+          <p class="section-subtitle">La synergie entre un cursus académique exigeant et un ancrage relationnel éprouvé
+            sur le terrain.</p>
+        </div>
+
+        <div class="edu-vision-grid">
+          <!-- FORMATION & LANGUES -->
+          <div class="dual-box">
+            <h3 class="dual-box-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+              </svg>
+              <span>Cursus Universitaire</span>
+            </h3>
+
+            <div class="edu-item">
+              <div class="edu-degree">Master Sécurité Informatique</div>
+              <div class="edu-school">ESGI Reims • 2ᵉ année de Mastère (2024–2026)</div>
+              <div class="edu-details">Spécialisation offensive &amp; défensive, audits d'architecture, analyse
+                forensique, gouvernance et conformité.</div>
+            </div>
+
+            <div class="edu-item">
+              <div class="edu-degree">Licence Chef de Projet Logiciel &amp; Réseau</div>
+              <div class="edu-school">ESGI Reims • Obtenue en alternance (IVT Security)</div>
+              <div class="edu-details">Gestion de projet IT, routage avancé, protocoles de communication et sécurisation
+                des infrastructures.</div>
+            </div>
+
+            <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-subtle);">
+              <div
+                style="font-size: 0.82rem; font-family: var(--font-mono); color: var(--text-dim); margin-bottom: 8px;">
+                LANGUES PROFESSIONNELLES</div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-weight: 600;">Français</span>
+                <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-emerald);">Langue
+                  maternelle</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600;">Anglais</span>
+                <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-amber);">Niveau B2 •
+                  Score TOEIC 805</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SAVOIR-ÊTRE OPÉRATIONNEL -->
+          <div class="dual-box">
+            <h3 class="dual-box-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span>Savoir-être Opérationnel</span>
+            </h3>
+
+            <div class="soft-skills-list">
+              <div class="soft-item">
+                <div class="soft-icon">01</div>
+                <div>
+                  <div class="soft-name">Réactivité &amp; Rigueur terrain</div>
+                  <div class="soft-desc">Gérer le support N1 à N3 sur 4 sites impose de traiter vite en priorisant les
+                    urgences, sans jamais dégrader la traçabilité.</div>
+                </div>
+              </div>
+
+              <div class="soft-item">
+                <div class="soft-icon">02</div>
+                <div>
+                  <div class="soft-name">Polyvalence Infrastructure &amp; Cloud</div>
+                  <div class="soft-desc">Capacité à intervenir aussi bien sur du câblage physique et des serveurs
+                    d'atelier que sur des consoles M365 ou des firewalls SASE.</div>
+                </div>
+              </div>
+
+              <div class="soft-item">
+                <div class="soft-icon">03</div>
+                <div>
+                  <div class="soft-name">Pédagogie &amp; Sensibilisation</div>
+                  <div class="soft-desc">Traduire les risques cyber en conseils simples et concrets pour les
+                    utilisateurs non-techniques (ex. campagnes anti-phishing).</div>
+                </div>
+              </div>
+
+              <div class="soft-item">
+                <div class="soft-icon">04</div>
+                <div>
+                  <div class="soft-name">Pragmatisme face aux contraintes métier</div>
+                  <div class="soft-desc">Adapter la sécurité aux processus réels de l'entreprise plutôt que d'imposer
+                    des règles théoriques bloquantes pour l'activité.</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div>
-          <div class="lang-item">
-            <span class="lang-name">Français</span>
-            <span class="lang-lvl">Natif</span>
+        <!-- VISION & OBJECTIF PROFESSIONNEL -->
+        <div class="vision-banner">
+          <div
+            style="font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; color: var(--accent-amber); margin-bottom: 6px;">
+            CAP &amp; OBJECTIF PROFESSIONNEL</div>
+          <div class="vision-lead">
+            Consultant en Sécurité Informatique ou Administrateur Systèmes &amp; Réseaux — un positionnement où la
+            profondeur technique rencontre les réalités du terrain.
           </div>
-          <div class="lang-item">
-            <span class="lang-name">Anglais</span>
-            <span class="lang-lvl">B2 — TOEIC 805</span>
+          <div class="vision-body">
+            Mon double cursus me permet d'aborder la cybersécurité avec une vision équilibrée : la rigueur de l'analyste
+            face aux menaces, couplée au pragmatisme de l'administrateur qui maintient des services disponibles au
+            quotidien. Je suis prêt à m'investir sur des environnements complexes pour durcir le SI, auditer les
+            infrastructures et accompagner les équipes vers une posture de cyber-résilience durable.
           </div>
         </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIED DE PAGE & CONTACT -->
+  <footer class="site-footer" id="contact">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 32px;">
+        <div class="section-kicker">Coordonnées</div>
+        <h2 class="section-title">Entrons en contact</h2>
+        <p class="section-subtitle">Disponible pour échanger autour de projets en cybersécurité, opportunités
+          professionnelles ou présentation détaillée de mes réalisations.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-box">
+          <div>
+            <div class="contact-box-label">ADRESSE EMAIL</div>
+            <div class="contact-box-val">avril.sam5308@gmail.com</div>
+          </div>
+          <button class="contact-box-action" onclick="copyContact('email', 'avril.sam5308@gmail.com')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copier l'adresse</span>
+          </button>
+        </div>
+
+        <div class="contact-box">
+          <div>
+            <div class="contact-box-label">TÉLÉPHONE</div>
+            <div class="contact-box-val">+33 (0)6 87 09 30 56</div>
+          </div>
+          <button class="contact-box-action" onclick="copyContact('téléphone', '0687093056')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copier le numéro</span>
+          </button>
+        </div>
+
+        <div class="contact-box">
+          <div>
+            <div class="contact-box-label">RÉSEAU PROFESSIONNEL</div>
+            <div class="contact-box-val">linkedin.com/in/samuel-avril</div>
+          </div>
+          <a href="https://www.linkedin.com/in/samuel-avril-287338292" target="_blank" rel="noopener"
+            class="contact-box-action">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            <span>Ouvrir le profil LinkedIn</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>Samuel Avril — Book de compétences • Master Sécurité Informatique, ESGI Reims</div>
+        <div>Grand Oral Professionnel 2025–2026</div>
       </div>
     </div>
-  </section>
+  </footer>
 
-  <section class="section" id="objectif">
-    <div class="wrap">
-      <div class="kicker"><span class="idx">07</span><h2>Projet professionnel</h2></div>
-      <div class="objectif-block">
-        <p class="lede">
-          Consultant sécurité informatique ou administrateur systèmes &amp; réseau — un poste où le terrain
-          et la technique se rejoignent.
-        </p>
-        <p>
-          Mon parcours en alternance m'a donné une pratique concrète de l'administration au quotidien ;
-          le Mastère m'apporte la profondeur technique en cybersécurité offensive et défensive. Je n'ai pas
-          de cible géographique ou sectorielle figée à ce stade : je reste ouvert aux opportunités qui
-          allient rigueur technique et proximité avec le terrain.
-        </p>
+  <!-- MODAL PALETTE DE COMMANDES (CMD+K) -->
+  <div class="cmd-palette-backdrop" id="cmd-backdrop">
+    <div class="cmd-modal">
+      <div class="cmd-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          style="color: var(--text-dim);">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="cmd-search-input" class="cmd-input"
+          placeholder="Naviguer vers une section ou exécuter une action..." autocomplete="off">
+        <span class="cmd-key">ESC</span>
       </div>
-    </div>
-  </section>
-
-</main>
-
-<footer id="contact">
-  <div class="wrap">
-    <div class="kicker"><span class="idx">08</span><h2>Contact</h2></div>
-    <div class="contact-grid">
-      <div class="contact-field">
-        <div class="f-label">Email</div>
-        <div class="f-value"><a href="mailto:avril.sam5308@gmail.com">avril.sam5308@gmail.com</a></div>
+      <div class="cmd-list" id="cmd-items-list">
+        <div class="cmd-item" onclick="navigateToSection('#profil')">
+          <span>Profil &amp; Métriques clés</span>
+          <span class="cmd-item-shortcut">G P</span>
+        </div>
+        <div class="cmd-item" onclick="navigateToSection('#experience')">
+          <span>Expériences (Forgex &amp; IVT)</span>
+          <span class="cmd-item-shortcut">G E</span>
+        </div>
+        <div class="cmd-item" onclick="navigateToSection('#projets')">
+          <span>Projets phares (PAF &amp; Enigma)</span>
+          <span class="cmd-item-shortcut">G R</span>
+        </div>
+        <div class="cmd-item" onclick="navigateToSection('#competences')">
+          <span>Matrice des compétences</span>
+          <span class="cmd-item-shortcut">G C</span>
+        </div>
+        <div class="cmd-item" onclick="navigateToSection('#formation')">
+          <span>Formation &amp; Vision métier</span>
+          <span class="cmd-item-shortcut">G F</span>
+        </div>
+        <div class="cmd-item" onclick="toggleTheme()">
+          <span>Basculer le thème Clair / Sombre</span>
+          <span class="cmd-item-shortcut">T</span>
+        </div>
+        <div class="cmd-item" onclick="copyContact('email', 'avril.sam5308@gmail.com')">
+          <span>Copier l'adresse email</span>
+          <span class="cmd-item-shortcut">C E</span>
+        </div>
+        <div class="cmd-item" onclick="window.print()">
+          <span>Imprimer / Exporter le dossier en PDF</span>
+          <span class="cmd-item-shortcut">⌘P</span>
+        </div>
       </div>
-      <div class="contact-field">
-        <div class="f-label">Téléphone</div>
-        <div class="f-value">06 87 09 30 56</div>
-      </div>
-      <div class="contact-field">
-        <div class="f-label">LinkedIn</div>
-        <div class="f-value"><a href="https://www.linkedin.com/in/samuel-avril-287338292" target="_blank" rel="noopener">linkedin.com/in/samuel-avril-287338292</a></div>
-      </div>
-    </div>
-    <div class="fine-print">
-      Book de compétences — Samuel Avril — Master Sécurité Informatique, ESGI Reims — Grand Oral Professionnel 2025–2026
     </div>
   </div>
-</footer>
 
+  <!-- TOAST FEEDBACK -->
+  <div class="toast" id="toast">Copié dans le presse-papier !</div>
+
+  <!-- SCRIPT LOGIQUE & INTERACTIONS -->
+  <script>
+    // =========================================================================
+    // 1. GESTION DU THÈME (CLAIR / SOMBRE)
+    // =========================================================================
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('portfolio-theme', theme);
+      if (theme === 'light') {
+        themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+      } else {
+        themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+      }
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      closeCmdPalette();
+    }
+
+    themeToggleBtn.addEventListener('click', toggleTheme);
+    const savedTheme = localStorage.getItem('portfolio-theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    applyTheme(savedTheme);
+
+    // =========================================================================
+    // 2. HORLOGE LOCALE & PROGRESS BAR
+    // =========================================================================
+    function updateClock() {
+      const clockEl = document.getElementById('local-clock');
+      if (!clockEl) return;
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('fr-FR', { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      clockEl.textContent = `Reims, FR • ${timeStr}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const progressEl = document.getElementById('scroll-progress');
+      if (progressEl) progressEl.style.width = scrolled + '%';
+    });
+
+    // =========================================================================
+    // 3. TOAST & PRESSE-PAPIER
+    // =========================================================================
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+
+    function copyContact(label, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`${label.toUpperCase()} copié dans le presse-papier !`);
+      }).catch(() => {
+        showToast(`Copié : ${text}`);
+      });
+    }
+
+    // =========================================================================
+    // 4. INTERACTION PROJET PAF (RED TEAM / BLUE TEAM & NŒUDS)
+    // =========================================================================
+    let currentPafMode = 'red';
+    let currentPafNode = 1;
+
+    const pafData = {
+      1: {
+        red: {
+          title: "Étape 1 : Fausse borne UniFi & Matériel d'intrusion",
+          badge: "Vecteur Matériel (Red)",
+          desc: "Un Raspberry Pi dissimulé dans une coque officielle d'access point Ubiquiti. Dès qu'il est raccordé physiquement à une prise réseau d'un bureau ou d'une salle de réunion, l'appareil démarre sans émettre de signaux anormaux, obtient une IP via DHCP discret et prépare le tunnel.",
+          tags: ["Coque UniFi OEM", "Raspberry Pi OS Lite", "PoE / Alimentation discrète", "Bypass physique"]
+        },
+        blue: {
+          title: "Défense Étape 1 : Détection physique & Contrôle d'accès réseau",
+          badge: "Remédiation 802.1X (Blue)",
+          desc: "Mettre en place une authentification 802.1X (EAP-TLS avec certificats machine obligatoires) sur tous les ports muraux. Activer le Port Security (limitation du nombre d'adresses MAC par port) et le DHCP Snooping pour bloquer tout équipement non approuvé dès la connexion physique.",
+          tags: ["802.1X EAP-TLS", "Port Security", "DHCP Snooping", "Contrôle d'accès physique"]
+        }
+      },
+      2: {
+        red: {
+          title: "Étape 2 : Établissement du canal sortant (Socat Callback)",
+          badge: "Canal Furtif (Red)",
+          desc: "Le Raspberry Pi initie une connexion sortante chiffrée vers un port autorisé (HTTPS TCP/443). Les flux sortants étant rarement filtrés aussi strictement que les entrants, la charge utile traverse les passerelles classiques sans déclencher d'alerte immédiate.",
+          tags: ["Socat TLS", "Port 443 HTTPS", "Reverse Shell chiffré", "Egress Filtering Bypass"]
+        },
+        blue: {
+          title: "Défense Étape 2 : Inspection TLS & Filtrage SASE / Egress",
+          badge: "Détection SASE (Blue)",
+          desc: "Déployer une inspection SSL/TLS sur les flux sortants via le pare-feu (ex: Cato Networks). Bloquer les connexions sortantes brutes vers des IP directes sans résolution DNS légitime et interdire les certificats auto-signés non reconnus.",
+          tags: ["Inspection SSL Cato Networks", "Filtrage Egress strict", "Analyse de flux CTI", "DNS Sinkholing"]
+        }
+      },
+      3: {
+        red: {
+          title: "Étape 3 : Serveur de Rebond & Anonymisation de l'Opérateur",
+          badge: "Proxying C2 (Red)",
+          desc: "La connexion du Raspberry Pi ne pointe pas directement sur le poste de l'auditeur mais sur un VPS intermédiaire jetable. Ce rebond permet de relayer les sockets, de masquer l'adresse IP source réelle de l'opérateur et de résister à une coupure accidentelle.",
+          tags: ["VPS Relais", "Masquage d'IP", "Proxy TCP", "Résilience opérationnelle"]
+        },
+        blue: {
+          title: "Défense Étape 3 : Threat Intelligence & Analyse Comportementale",
+          badge: "Surveillance SOC (Blue)",
+          desc: "Intégrer des flux de Cyber Threat Intelligence (CTI) pour détecter les connexions vers des Autonomous Systems (AS) d'hébergeurs VPS suspects. Tracer les flux réseau persistants à faible débit (beaconing).",
+          tags: ["Détection de Beaconing", "Flux CTI", "Analyse NetFlow/IPFIX", "Règles SIEM"]
+        }
+      },
+      4: {
+        red: {
+          title: "Étape 4 : Poste Opérateur & Exécution de Commandes Distantes",
+          badge: "Contrôle C2 (Red)",
+          desc: "L'auditeur accède à un shell interactif au cœur du réseau interne d'entreprise. À partir de ce pied-à-terre, il peut procéder au mapping réseau, sonder l'Active Directory et simuler des mouvements latéraux d'attaquant.",
+          tags: ["Shell distant", "Pivoting réseau", "Reconnaissance AD", "Simulation APT"]
+        },
+        blue: {
+          title: "Défense Étape 4 : Micro-segmentation & Détection EDR/XDR",
+          badge: "Confinement & EDR (Blue)",
+          desc: "Appliquer une micro-segmentation stricte (VLANs utilisateurs étanches sans communication directe inter-postes). Déployer des agents EDR capables de détecter les sondages RPC, scans SMB et tentatives d'élévation de privilèges locales.",
+          tags: ["Micro-segmentation VLAN", "Règles Zero Trust", "Isolation d'hôte EDR", "Journalisation Active Directory"]
+        }
+      }
+    };
+
+    function updatePafDisplay() {
+      const data = pafData[currentPafNode][currentPafMode];
+      document.getElementById('paf-detail-title').textContent = data.title;
+      document.getElementById('paf-detail-badge').textContent = data.badge;
+      document.getElementById('paf-detail-badge').className = `badge ${currentPafMode === 'red' ? 'badge-ongoing' : 'badge-past'}`;
+      document.getElementById('paf-detail-desc').textContent = data.desc;
+
+      const tagsContainer = document.getElementById('paf-detail-tags');
+      tagsContainer.innerHTML = '';
+      data.tags.forEach(tag => {
+        const span = document.createElement('span');
+        span.className = 'tech-pill';
+        span.textContent = tag;
+        tagsContainer.appendChild(span);
+      });
+
+      // Mise à jour des nœuds actifs
+      const nodes = document.querySelectorAll('.topo-node');
+      nodes.forEach((node, idx) => {
+        if (idx + 1 === currentPafNode) {
+          node.classList.add('active-node');
+        } else {
+          node.classList.remove('active-node');
+        }
+      });
+    }
+
+    function selectPafNode(nodeIdx) {
+      currentPafNode = nodeIdx;
+      updatePafDisplay();
+    }
+
+    function setPafMode(mode) {
+      currentPafMode = mode;
+      const redBtn = document.getElementById('btn-red-mode');
+      const blueBtn = document.getElementById('btn-blue-mode');
+      if (mode === 'red') {
+        redBtn.className = 'paf-mode-btn active-red';
+        blueBtn.className = 'paf-mode-btn';
+      } else {
+        redBtn.className = 'paf-mode-btn';
+        blueBtn.className = 'paf-mode-btn active-blue';
+      }
+      updatePafDisplay();
+    }
+
+    // =========================================================================
+    // 5. INTERACTION TERMINAL ENIGMA
+    // =========================================================================
+    const termArea = document.getElementById('term-output-area');
+
+    function appendTerminal(html) {
+      termArea.innerHTML += html;
+      termArea.scrollTop = termArea.scrollHeight;
+    }
+
+    function runTerminalCmd(type) {
+      if (type === 'clear') {
+        termArea.innerHTML = `<div><span class="term-prompt">samuel@esgi-reims:~$</span> <span class="term-cmd">clear</span></div>`;
+        return;
+      }
+
+      if (type === 'ad') {
+        appendTerminal(`
+          <div><span class="term-prompt">samuel@esgi-reims:~$</span> <span class="term-cmd">./enigma.sh --audit ad --target 192.168.10.1</span></div>
+          <div class="term-output">
+            [+] Cible : Active Directory Domain Services (DC01.forgex.local)<br>
+            [*] Recherche des comptes à privilèges Kerberoasting... <span class="term-warn">[2 comptes vulnérables détectés]</span><br>
+            [*] Analyse des ACLs et chemins d'attaque BloodHound... <span class="term-success">[Export JSON complété]</span><br>
+            [*] Vérification de la signature SMB et durcissement LDAP... <span class="term-highlight">[SMB Signing = Activé]</span><br>
+            <span class="term-success">[✓] Audit Active Directory terminé avec succès.</span>
+          </div>
+        `);
+      } else if (type === 'network') {
+        appendTerminal(`
+          <div><span class="term-prompt">samuel@esgi-reims:~$</span> <span class="term-cmd">./enigma.sh --audit net --subnet 192.168.20.0/24</span></div>
+          <div class="term-output">
+            [+] Scan SYN furtif lancé sur le sous-réseau d'administration...<br>
+            [*] 14 hôtes actifs détectés.<br>
+            [*] Ports sensibles ouverts : 22 (SSH), 443 (HTTPS), 3389 (RDP), 8006 (Proxmox WebUI)<br>
+            <span class="term-success">[✓] Cartographie réseau enregistrée dans /tmp/enigma_net.xml.</span>
+          </div>
+        `);
+      } else if (type === 'web') {
+        appendTerminal(`
+          <div><span class="term-prompt">samuel@esgi-reims:~$</span> <span class="term-cmd">./enigma.sh --audit web --url https://intranet.local</span></div>
+          <div class="term-output">
+            [+] Audit de conformité des en-têtes de sécurité HTTP...<br>
+            [*] Content-Security-Policy (CSP) : <span class="term-warn">[Absent]</span><br>
+            [*] Strict-Transport-Security (HSTS) : <span class="term-success">[Présent - max-age=31536000]</span><br>
+            [*] X-Frame-Options : <span class="term-success">[DENY]</span><br>
+            <span class="term-success">[✓] Scan d'application web finalisé.</span>
+          </div>
+        `);
+      } else if (type === 'report') {
+        appendTerminal(`
+          <div><span class="term-prompt">samuel@esgi-reims:~$</span> <span class="term-cmd">./enigma.sh --generate-report --format html</span></div>
+          <div class="term-output">
+            [+] Compilation des artefacts de reconnaissance et d'audit...<br>
+            [+] Injection des métriques dans le template HTML autonome...<br>
+            <span class="term-success">[✓] Rapport généré avec succès : ./rapports/enigma_audit_2026.html (Taille: 142 Ko)</span>
+          </div>
+        `);
+      } else if (type === 'help') {
+        appendTerminal(`
+          <div><span class="term-prompt">samuel@esgi-reims:~$</span> <span class="term-cmd">./enigma.sh --help</span></div>
+          <div class="term-output">
+            Usage : enigma.sh [OPTIONS] --target &lt;CIBLE&gt;<br>
+            Modules disponibles :<br>
+            &nbsp;&nbsp;--audit ad&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Audit de sécurité Active Directory (Kerberos, ACLs, GPO)<br>
+            &nbsp;&nbsp;--audit net&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Découverte et cartographie réseau furtive (Nmap)<br>
+            &nbsp;&nbsp;--audit web&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scan des vulnérabilités web et en-têtes HTTP<br>
+            &nbsp;&nbsp;--audit host&nbsp;&nbsp;&nbsp;&nbsp;Durcissement local poste Windows ou Linux<br>
+            &nbsp;&nbsp;--generate-report Génération de la synthèse HTML consolidée
+          </div>
+        `);
+      }
+    }
+
+    // =========================================================================
+    // 6. FILTRAGE DES COMPÉTENCES
+    // =========================================================================
+    function filterSkills(category) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const cards = document.querySelectorAll('.skill-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // =========================================================================
+    // 7. PALETTE DE COMMANDES (CMD+K / CTRL+K)
+    // =========================================================================
+    const cmdBackdrop = document.getElementById('cmd-backdrop');
+    const cmdInput = document.getElementById('cmd-search-input');
+    const cmdTrigger = document.getElementById('cmd-trigger');
+
+    function openCmdPalette() {
+      cmdBackdrop.classList.add('open');
+      cmdInput.value = '';
+      cmdInput.focus();
+      filterCmdItems('');
+    }
+
+    function closeCmdPalette() {
+      cmdBackdrop.classList.remove('open');
+    }
+
+    cmdTrigger.addEventListener('click', openCmdPalette);
+    cmdBackdrop.addEventListener('click', (e) => {
+      if (e.target === cmdBackdrop) closeCmdPalette();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        cmdBackdrop.classList.contains('open') ? closeCmdPalette() : openCmdPalette();
+      }
+      if (e.key === 'Escape' && cmdBackdrop.classList.contains('open')) {
+        closeCmdPalette();
+      }
+    });
+
+    function navigateToSection(id) {
+      closeCmdPalette();
+      const el = document.querySelector(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function filterCmdItems(query) {
+      const items = document.querySelectorAll('.cmd-item');
+      items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(query.toLowerCase()) ? 'flex' : 'none';
+      });
+    }
+
+    cmdInput.addEventListener('input', (e) => {
+      filterCmdItems(e.target.value);
+    });
+
+    // =========================================================================
+    // 8. SCROLLSPY SUR LA NAVBAR
+    // =========================================================================
+    const sections = document.querySelectorAll('section[id], footer[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      let currentSection = '';
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 120;
+        if (window.scrollY >= top) {
+          currentSection = sec.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
 </body>
+
 </html>
